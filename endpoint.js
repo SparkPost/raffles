@@ -24,5 +24,5 @@ var q = require('q')
       ignoreNonArrayPayloads: false
     });
 
-endpoint.listen(3000);
+endpoint.listen(process.env.PORT || 3000);
 
