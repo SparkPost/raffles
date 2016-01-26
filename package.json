@@ -4,7 +4,7 @@
   "description": "A SparkPost-driven raffle app",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev node index.js"
+    "dev": "NODE_ENV=dev node index.js",
     "prod": "NODE_ENV=prod node index.js"
   },
   "keywords": [
