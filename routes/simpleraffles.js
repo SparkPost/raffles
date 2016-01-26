@@ -8,6 +8,7 @@ var q = require('q')
   , pgp;
 
 pgMonitor.attach(pgOptions);
+pgMonitor.detailed = true;
 pgp = pgPromise(pgOptions); 
 
 module.exports = router;
@@ -34,7 +35,7 @@ router.get('/:raffleId', function(req, res) {
 });
 
 router.get('/:raffleId/winner', function(req, res) {
-  db().one("SELECT message_id, smtp_from, smtp_to, subject, created FROM request.dump.relay_messages " +
+  db().one("SELECT message_id, smtp_from, smtp_to, subject, created FROM request_dump.relay_messages " +
     "WHERE smtp_to = $1 || '@' || $2 OFFSET FLOOR(RANDOM()*(SELECT COUNT(*) " +
     "FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2)) LIMIT 1",
     [req.params.raffleId, process.env.RCPT_DOMAIN]
