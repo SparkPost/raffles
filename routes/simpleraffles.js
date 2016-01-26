@@ -8,7 +8,8 @@ module.exports = router;
 
 router.get('/:raffleId', function(req, res) {
   pgp(process.env.HEROKU_POSTGRESQL_CHARCOAL_URL).one(
-    "SELECT COUNT(*) FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2"
+    "SELECT COUNT(*) FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2",
+    [req.params.raffleId, process.env.RCPT_DOMAIN]
   ).then(function(cnt) {
     return res.json({results: {num_entries: cnt}});
   }).fail(function(err) {
