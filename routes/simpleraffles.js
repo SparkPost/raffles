@@ -1,8 +1,14 @@
 'use strict';
 
 var q = require('q')
-  , pgp = require('pg-promise')({promiseLib: q})
-  , router = require('express').Router();
+  , pgPromise = require('pg-promise')
+  , pgMonitor = require('pg-monitor')
+  , router = require('express').Router()
+  , pgOptions = {promiseLib: q}
+  , pgp;
+
+pgMonitor.attach(pgOptions);
+pgp = pgPromise(pgOptions); 
 
 module.exports = router;
 
