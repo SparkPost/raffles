@@ -27,7 +27,7 @@ router.get('/:raffleId', function(req, res) {
   });
 });
 
-router.get('/raffleId/winner', function(req, res) {
+router.get('/:raffleId/winner', function(req, res) {
   db().one("SELECT message_id, smtp_from, smtp_to, subject, created FROM relay_messages " +
     "WHERE smtp_to = $1 || '@' || $2 offset floor(random()*(select count(*) " +
     "from request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2 limit 1",
