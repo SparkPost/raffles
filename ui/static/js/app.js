@@ -16,7 +16,7 @@ rafflesControllers.controller('RaffleListCtrl', ['$scope', '$http', '$log',
     $scope.updateView = function() {
       $http({
         method: 'GET',
-        url: '/api/raffles',
+        url: '/api/email',
         params: {
           fromdate: $scope.fromdate,
           todate: $scope.todate,
