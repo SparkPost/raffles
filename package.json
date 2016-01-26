@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=dev node index.js",
-    "prod": "NODE_ENV=prod node index.js"
+    "prod": "NODE_ENV=prod node index.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "keywords": [
     "sparkpost",
@@ -23,7 +24,8 @@
     "morgan": "^1.6.1",
     "pg-monitor": "^0.4.5",
     "pg-promise": "^3.0.3",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "bower": "^1.7.2"
   },
   "devDependencies": {
     "chai": "^3.4.1"
