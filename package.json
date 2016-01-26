@@ -4,7 +4,8 @@
   "description": "A SparkPost-driven raffle app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=dev node index.js",
+    "test": "NODE_ENV=test mocha test/unit/"
   },
   "keywords": [
     "sparkpost",
@@ -16,8 +17,12 @@
   "author": "Ewan Dennis",
   "license": "Apache 2.0",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "config": "^1.19.0",
+    "express": "^4.13.4",
+    "morgan": "^1.6.1",
     "node-webhook-endpoint": "git://github.com/ewandennis/sp-webhook-endpoint#relay-webhooks",
+    "pg-monitor": "^0.4.5",
     "pg-promise": "^3.0.3",
     "q": "^1.4.1"
   },

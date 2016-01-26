@@ -1,0 +1,30 @@
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-5">
+      <button class="btn" ng-click="newRaffle()">New raffle</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Local Part</th>
+              <th>Title</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="raffle in raffles">
+                <td>{{raffle.slug}}</td>
+                <td>{{raffle.name}}</td>
+                <td>{{raffle.start_time | date: 'MMM d, y HH:mm'}}</td>
+                <td>{{raffle.end_time | date: 'MMM d, y HH:mm'}}</td>
+                <td><button class="btn" ng-click="editRaffle(raffle.id)">Edit...</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

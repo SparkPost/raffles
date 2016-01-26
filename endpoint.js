@@ -8,12 +8,12 @@ var q = require('q')
   , db = new Storage({dburl: dburl})
   , storageProvider = {
     storeBatch: function(batch, next) {
-      console.log("Received batch: " + JSON.stringify(batch, null, '  '));
       db.storeEmail(batch).then(function() {
         console.log("Batch stored");
         next();
       }).catch(function(err) {
         console.log("Batch storage failed: " + err);
+        console.log("Failing batch: " + JSON.stringify(batch, null, '  '));
         next(err);
       });
     },

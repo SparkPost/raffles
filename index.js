@@ -1,9 +1,21 @@
-var Storage = require('./storage')
-  , db = new Storage({dburl: 'postgres://ewandennis@localhost/raffles'});
+var express = require('express')
+  , bodyParser = require('body-parser')
+  , morgan = require('morgan')
+  , app = express()
+  , raffleRouter = require('./routes/raffles')
+  , srv = require('http').Server(app);
 
+app.use(bodyParser.json({
+  limit: '100kb'
+}));
 
-db.storeEmail('HEAD', '{"body":"hiyaa"}').then(function() {
-  console.log("WOOO");
-}).catch(function(err) {
-  console.log("AAW: " + err);
+app.use(morgan('dev'));
+
+app.use('/', express.static(__dirname + '/ui/static/'));
+
+app.use('/api/raffles', raffleRouter);
+
+srv.listen(process.env.PORT || 3000, function() {
+  console.log('Listening on port ' + srv.address().port);
 });
+

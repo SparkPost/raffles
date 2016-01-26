@@ -13,8 +13,11 @@ function Storage(options) {
 module.exports = Storage;
 
 Storage.prototype.storeEmail = function(body) {
-  return pgp(this.dburl).none("INSERT INTO spraffles.email (body) VALUES ($1)",
-      [body]);
+  return pgp(this.dburl).none("INSERT INTO spraffles.email (friendly_from, rcpt_to, body) VALUES ($1, $2, $3)", [
+    body.msys.relay_message.friendly_from,
+    body.msys.relay_message.rcpt_to,
+    JSON.stringify(body)
+  ]);
 };
 
 //Storage.prototype.openEmailBatch = function(batchid) {
