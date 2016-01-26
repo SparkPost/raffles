@@ -1,1 +1,1 @@
-web: node endpoint.js
+web: npm run prod
