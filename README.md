@@ -64,7 +64,16 @@ npm run web
 ```
 
 ### API Usage
-- /raffles - list raffles:
+Note: all endpoints support `from` and `to` query date/time parameters to narrow their focus to a particular time window.
+If the JS Date type can parse it, you can use it in `from` or `to`.
+
+e.g.:
+
+```bash
+$curl -s 'http://localhost:5000/raffles?from=2015-01-01&to=2015-02-01' | jq .
+```
+
+`/raffles` - list raffles:
 ```bash
 $ curl -s http://localhost:5000/raffles | jq .
 ```
@@ -83,7 +92,7 @@ $ curl -s http://localhost:5000/raffles | jq .
 }
 '''
 
-- /raffles/:raffleId - summarise entries for a raffle:
+`/raffles/:raffleId` - summarise entries for a raffle:
 ```bash
 $ curl -s http://localhost:5000/raffles/dgray | jq .
 ```
@@ -97,7 +106,7 @@ $ curl -s http://localhost:5000/raffles/dgray | jq .
 }
 ```
 
-- /raffles/:raffleId/winner - pick a winning entrant for a given raffle:
+`/raffles/:raffleId/winner` - pick a winning entrant for a given raffle:
 ```bash
 $ curl -s http://localhost:5000/raffles/dgray/winner | jq .
 ```
