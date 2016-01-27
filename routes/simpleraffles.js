@@ -10,7 +10,11 @@ module.exports = router;
 router.get('/', function(req, res) {
   Raffle.listRaffles(req.query.from, req.query.to).then(function(lst) {
     return res.json({
-      results: lst
+      results: lst.map(function(raffle) {
+        raffle.count = parseInt(raffle.cnt);
+        delete raffle.cnt;
+        return raffle;
+      })
     });
   }).fail(function(err) {
     res.status(500).send({errors: [err]});
@@ -19,6 +23,7 @@ router.get('/', function(req, res) {
 
 router.get('/:raffleId', function(req, res) {
   Raffle.getRaffle(req.query.from, req.query.to, req.params.raffleId).then(function(raffle) {
+    raffle.num_entries = parseInt(raffle.num_entries); 
     return res.json({ results: raffle });
   }).fail(function(err) {
     res.status(500).send({errors: [err]});
