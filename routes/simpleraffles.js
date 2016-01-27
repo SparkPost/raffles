@@ -15,7 +15,7 @@ pgp = pgPromise(pgOptions);
 module.exports = router;
 
 function db() {
-  return pgp(process.env.HEROKU_POSTGRESQL_CHARCOAL_URL || config.get('maildburl'));
+  return pgp(process.env.WEBHOOK_CONSUMER_DB_URL || config.get('maildburl'));
 }
 
 function rcptDomain() {
