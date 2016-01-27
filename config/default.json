@@ -1,2 +1,5 @@
 {
+  "dburl": "postgres://ewandennis@localhost/raffles",
+  "maildburl": "postgres://ewandennis@localhost/avocadomail",
+  "rcptdomain": "hey.avocado.industries"
 }
