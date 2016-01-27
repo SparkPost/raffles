@@ -1,8 +1,6 @@
 'use strict';
 
 var q = require('q')
-  , pgPromise = require('pg-promise')
-  , pgMonitor = require('pg-monitor')
   , config = require('config')
   , router = require('express').Router()
   , Raffle = require('../models/raffle')

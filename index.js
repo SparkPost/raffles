@@ -1,17 +1,21 @@
 var express = require('express')
   , bodyParser = require('body-parser')
+  , passport = require('passport')
   , morgan = require('morgan')
   , app = express()
   , raffleRouter = require('./routes/simpleraffles')
+  , auth = require('./auth')
   , srv = require('http').Server(app);
 
 app.use(bodyParser.json({
   limit: '100kb'
 }));
 
+app.use(passport.initialize());
+
 app.use(morgan('dev'));
 
-app.use('/raffles', raffleRouter);
+app.use('/raffles', auth, raffleRouter);
 
 app.use('/', express.static(__dirname + '/ui/'));
 

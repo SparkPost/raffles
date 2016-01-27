@@ -1,19 +1,7 @@
 'use strict';
 
-var q = require('q')
-  , pgPromise = require('pg-promise')
-  , pgMonitor = require('pg-monitor')
-  , config = require('config')
-  , pgOptions = {promiseLib: q}
-  , pgp;
-
-pgMonitor.attach(pgOptions);
-pgMonitor.detailed = true;
-pgp = pgPromise(pgOptions);
-
-function db() {
-  return pgp(process.env.WEBHOOK_CONSUMER_DB_URL || config.get('maildburl'));
-}
+var config = require('config')
+  , db = require('../db');
 
 function rcptDomain() {
   return process.env.RCPT_DOMAIN || config.get('rcptdomain');
