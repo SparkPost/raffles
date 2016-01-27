@@ -5,10 +5,16 @@
   <script src="vendor/angular/angular.js"></script>
   <script src="vendor/jquery/dist/jquery.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="js/app.js"></script>
   <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body ng-controller="RaffleListCtrl">
+  <script type="text/ng-template" id="alert.html">
+    <div class="alert" role="alert">
+      <div ng-transclude></div>
+    </div>
+  </script>
   <div class="container-fluid">
     <div class="col-xs-8 col-xs-offset-2">
       <h3>Avocado Industries Raffles</h3>
@@ -16,6 +22,13 @@
       <p>Each localpart represents a raffle and the count of entrants, people sending email to that localpart, is listed alongside.</p> 
     </div>
     <div class="col-xs-6 col-xs-offset-3">
+      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+      {{alert.msg}}
+      </uib-alert>
+    </div>
+    <div class="col-xs-6 col-xs-offset-3">
+      <input type="datetime-local" name="from_date" ng-model="from_date" ng-model-options="{ debounce: 1000 }" ng-change="updateView()" />
+      <input type="datetime-local" name="to_date" ng-model="to_date" ng-model-options="{ debounce: 1000 }" ng-change="updateView()" />
       <div class="table-responsive">
         <table class="table">
           <thead>
