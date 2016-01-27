@@ -13,7 +13,7 @@ app.use(morgan('dev'));
 
 app.use('/raffles', raffleRouter);
 
-//app.use('/', express.static(__dirname + '/ui/static/'));
+app.use('/', express.static(__dirname + '/ui/'));
 
 srv.listen(process.env.PORT || 3000, function() {
   console.log('Listening on port ' + srv.address().port);

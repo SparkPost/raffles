@@ -1,4 +1,4 @@
 node_modules/
-ui/static/vendor/
+ui/vendor/
 npm-debug.log
 

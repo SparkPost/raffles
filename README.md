@@ -64,6 +64,24 @@ npm run web
 ```
 
 ### API Usage
+- /raffles - list raffles:
+```bash
+$ curl -s http://localhost:5000/raffles | jq .
+```
+```json
+{
+  "results": [
+    {
+      "localpart": "dgray",
+      "cnt": "2"
+    },
+    {
+      "localpart": "ewan",
+      "cnt": "1"
+    }
+    ]
+}
+'''
 
 - /raffles/:raffleId - summarise entries for a raffle:
 ```bash
@@ -71,9 +89,9 @@ $ curl -s http://localhost:5000/raffles/dgray | jq .
 ```
 ```json
 {
-  "results": {
-    "num_entries": "2",
-    "first_received": "2016-01-26T16:46:30.982Z",
+"results": {
+"num_entries": "2",
+  "first_received": "2016-01-26T16:46:30.982Z",
     "last_received": "2016-01-26T16:46:30.984Z"
   }
 }

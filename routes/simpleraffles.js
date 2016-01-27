@@ -5,51 +5,36 @@ var q = require('q')
   , pgMonitor = require('pg-monitor')
   , config = require('config')
   , router = require('express').Router()
-  , pgOptions = {promiseLib: q}
-  , pgp;
-
-pgMonitor.attach(pgOptions);
-pgMonitor.detailed = true;
-pgp = pgPromise(pgOptions); 
+  , Raffle = require('../models/raffle')
 
 module.exports = router;
 
-function db() {
-  return pgp(process.env.WEBHOOK_CONSUMER_DB_URL || config.get('maildburl'));
-}
-
-function rcptDomain() {
-  return process.env.RCPT_DOMAIN || config.get('rcptdomain');
-}
-
-router.get('/:raffleId', function(req, res) {
-  db().one(
-    "SELECT COUNT(*) AS cnt, MIN(created) AS startdate, MAX(created) as enddate FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2",
-    [req.params.raffleId, rcptDomain()]
-  ).then(function(result) {
+router.get('/', function(req, res) {
+  Raffle.listRaffles(req.query.from, req.query.to).then(function(lst) {
     return res.json({
-      results: {
-        num_entries: result.cnt,
-        first_received: result.startdate,
-        last_received: result.enddate
-      }
+      results: lst
     });
   }).fail(function(err) {
     res.status(500).send({errors: [err]});
   });
 });
 
+router.get('/:raffleId', function(req, res) {
+  Raffle.getRaffle(req.query.from, req.query.to, req.params.raffleId).then(function(raffle) {
+    return res.json({ results: raffle });
+  }).fail(function(err) {
+    res.status(500).send({errors: [err]});
+  });
+});
+
 router.get('/:raffleId/winner', function(req, res) {
-  db().one("SELECT message_id, smtp_from, smtp_to, subject, created FROM request_dump.relay_messages " +
-    "WHERE smtp_to = $1 || '@' || $2 OFFSET FLOOR(RANDOM()*(SELECT COUNT(*) " +
-    "FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2)) LIMIT 1",
-    [req.params.raffleId, rcptDomain()]
-  ).then(function(winner) {
+  Raffle.pickWinner(req.query.from, req.query.to, req.params.raffleId).then(function(winner) {
+    if (winner) {
+      return res.json({ results: winner });
+    }
     return res.json({
-      results: {
-        winner_address: winner.smtp_from,
-        winner_sent_at: winner.created
-      }
+      results: null,
+      errors: [{ message: "This raffle has no entrants"}]
     });
   }).fail(function (err) {
     res.status(500).send({errors: [err]});
