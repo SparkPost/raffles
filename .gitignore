@@ -1,4 +1,4 @@
 node_modules/
 ui/vendor/
 npm-debug.log
-
+.env

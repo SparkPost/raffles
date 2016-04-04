@@ -4,6 +4,7 @@ var express = require('express')
   , morgan = require('morgan')
   , app = express()
   , raffleRouter = require('./routes/simpleraffles')
+  , consumerRouter = require('./routes/consumer')
   , auth = require('./auth')
   , srv = require('http').Server(app);
 
@@ -14,6 +15,8 @@ app.use(bodyParser.json({
 app.use(passport.initialize());
 
 app.use(morgan('dev'));
+
+app.use('/incoming', consumerRouter);
 
 app.use('/raffles', auth, raffleRouter);
 
