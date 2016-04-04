@@ -46,12 +46,12 @@ You can now access the app from https://<your-app-domain>/raffles
 ### Running Locally
 
 Create a local sparkies database.  Note: this creates a Postgres DB named `avocadomail`:
-```$ bash
-psql << avocadomail.sql
+```bash
+psql < avocadomail.sql
 ```
 
 Edit config/default.json to point to your local database:
-```json
+```javascript
 {
   "maildburl": "postgres://yourlogin@localhost/avocadomail",
   ...
