@@ -8,7 +8,7 @@ For example, when the app receives the following email:
 
 ```
 From: bob@entrant.com
-To: winstuff@hey.avocado.industries
+To: winstuff@raffle.sparkpost.com
 Subject: Pick Me!
 ```
 
@@ -37,7 +37,7 @@ Create a Heroku app, attach the Sparkies heroku-postgresql addon, configure the 
 ```bash
 $ heroku create
 $ heroku addons:attach <sparkies heroku-postgresql addon name> -a <your app name> --as WEBHOOK_CONSUMER_DB
-$ heroku config:set RCPT_DOMAIN=hey.avocado.industries
+$ heroku config:set RCPT_DOMAIN=raffle.sparkpost.com
 $ git push heroku master
 ```
 
