@@ -10,13 +10,13 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: avocadomail; Type: DATABASE; Schema: -; Owner: ewandennis
+-- Name: avocadomail; Type: DATABASE; Schema: -; Owner: current_user
 --
 
 CREATE DATABASE avocadomail WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
 
-ALTER DATABASE avocadomail OWNER TO ewandennis;
+ALTER DATABASE avocadomail OWNER TO current_user;
 
 \connect avocadomail
 
@@ -28,13 +28,13 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: request_dump; Type: SCHEMA; Schema: -; Owner: ewandennis
+-- Name: request_dump; Type: SCHEMA; Schema: -; Owner: current_user
 --
 
 CREATE SCHEMA request_dump;
 
 
-ALTER SCHEMA request_dump OWNER TO ewandennis;
+ALTER SCHEMA request_dump OWNER TO current_user;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -57,7 +57,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: raw_requests; Type: TABLE; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: raw_requests; Type: TABLE; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 CREATE TABLE raw_requests (
@@ -69,10 +69,10 @@ CREATE TABLE raw_requests (
 );
 
 
-ALTER TABLE raw_requests OWNER TO ewandennis;
+ALTER TABLE raw_requests OWNER TO current_user;
 
 --
--- Name: raw_requests_request_id_seq; Type: SEQUENCE; Schema: request_dump; Owner: ewandennis
+-- Name: raw_requests_request_id_seq; Type: SEQUENCE; Schema: request_dump; Owner: current_user
 --
 
 CREATE SEQUENCE raw_requests_request_id_seq
@@ -83,17 +83,17 @@ CREATE SEQUENCE raw_requests_request_id_seq
     CACHE 1;
 
 
-ALTER TABLE raw_requests_request_id_seq OWNER TO ewandennis;
+ALTER TABLE raw_requests_request_id_seq OWNER TO current_user;
 
 --
--- Name: raw_requests_request_id_seq; Type: SEQUENCE OWNED BY; Schema: request_dump; Owner: ewandennis
+-- Name: raw_requests_request_id_seq; Type: SEQUENCE OWNED BY; Schema: request_dump; Owner: current_user
 --
 
 ALTER SEQUENCE raw_requests_request_id_seq OWNED BY raw_requests.request_id;
 
 
 --
--- Name: relay_messages; Type: TABLE; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: relay_messages; Type: TABLE; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 CREATE TABLE relay_messages (
@@ -109,10 +109,10 @@ CREATE TABLE relay_messages (
 );
 
 
-ALTER TABLE relay_messages OWNER TO ewandennis;
+ALTER TABLE relay_messages OWNER TO current_user;
 
 --
--- Name: relay_messages_message_id_seq; Type: SEQUENCE; Schema: request_dump; Owner: ewandennis
+-- Name: relay_messages_message_id_seq; Type: SEQUENCE; Schema: request_dump; Owner: current_user
 --
 
 CREATE SEQUENCE relay_messages_message_id_seq
@@ -123,31 +123,31 @@ CREATE SEQUENCE relay_messages_message_id_seq
     CACHE 1;
 
 
-ALTER TABLE relay_messages_message_id_seq OWNER TO ewandennis;
+ALTER TABLE relay_messages_message_id_seq OWNER TO current_user;
 
 --
--- Name: relay_messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: request_dump; Owner: ewandennis
+-- Name: relay_messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: request_dump; Owner: current_user
 --
 
 ALTER SEQUENCE relay_messages_message_id_seq OWNED BY relay_messages.message_id;
 
 
 --
--- Name: request_id; Type: DEFAULT; Schema: request_dump; Owner: ewandennis
+-- Name: request_id; Type: DEFAULT; Schema: request_dump; Owner: current_user
 --
 
 ALTER TABLE ONLY raw_requests ALTER COLUMN request_id SET DEFAULT nextval('raw_requests_request_id_seq'::regclass);
 
 
 --
--- Name: message_id; Type: DEFAULT; Schema: request_dump; Owner: ewandennis
+-- Name: message_id; Type: DEFAULT; Schema: request_dump; Owner: current_user
 --
 
 ALTER TABLE ONLY relay_messages ALTER COLUMN message_id SET DEFAULT nextval('relay_messages_message_id_seq'::regclass);
 
 
 --
--- Data for Name: raw_requests; Type: TABLE DATA; Schema: request_dump; Owner: ewandennis
+-- Data for Name: raw_requests; Type: TABLE DATA; Schema: request_dump; Owner: current_user
 --
 
 COPY raw_requests (request_id, head, data, "when", batch_id) FROM stdin;
@@ -155,14 +155,14 @@ COPY raw_requests (request_id, head, data, "when", batch_id) FROM stdin;
 
 
 --
--- Name: raw_requests_request_id_seq; Type: SEQUENCE SET; Schema: request_dump; Owner: ewandennis
+-- Name: raw_requests_request_id_seq; Type: SEQUENCE SET; Schema: request_dump; Owner: current_user
 --
 
 SELECT pg_catalog.setval('raw_requests_request_id_seq', 11, true);
 
 
 --
--- Data for Name: relay_messages; Type: TABLE DATA; Schema: request_dump; Owner: ewandennis
+-- Data for Name: relay_messages; Type: TABLE DATA; Schema: request_dump; Owner: current_user
 --
 
 COPY relay_messages (message_id, webhook_id, smtp_from, smtp_to, subject, rfc822, is_base64, created, status_id) FROM stdin;
@@ -181,14 +181,14 @@ COPY relay_messages (message_id, webhook_id, smtp_from, smtp_to, subject, rfc822
 
 
 --
--- Name: relay_messages_message_id_seq; Type: SEQUENCE SET; Schema: request_dump; Owner: ewandennis
+-- Name: relay_messages_message_id_seq; Type: SEQUENCE SET; Schema: request_dump; Owner: current_user
 --
 
 SELECT pg_catalog.setval('relay_messages_message_id_seq', 11, true);
 
 
 --
--- Name: raw_requests_pkey; Type: CONSTRAINT; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: raw_requests_pkey; Type: CONSTRAINT; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 ALTER TABLE ONLY raw_requests
@@ -196,7 +196,7 @@ ALTER TABLE ONLY raw_requests
 
 
 --
--- Name: relay_messages_pkey; Type: CONSTRAINT; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: relay_messages_pkey; Type: CONSTRAINT; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 ALTER TABLE ONLY relay_messages
@@ -204,14 +204,14 @@ ALTER TABLE ONLY relay_messages
 
 
 --
--- Name: raw_requests_batch_id_idx; Type: INDEX; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: raw_requests_batch_id_idx; Type: INDEX; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 CREATE INDEX raw_requests_batch_id_idx ON raw_requests USING btree (batch_id);
 
 
 --
--- Name: relay_messages_smtp_to_idx; Type: INDEX; Schema: request_dump; Owner: ewandennis; Tablespace: 
+-- Name: relay_messages_smtp_to_idx; Type: INDEX; Schema: request_dump; Owner: current_user; Tablespace: 
 --
 
 CREATE INDEX relay_messages_smtp_to_idx ON relay_messages USING btree (smtp_to);

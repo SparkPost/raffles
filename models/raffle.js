@@ -18,7 +18,7 @@ function toWhereStr(clauseName, clauses) {
   if (clauses.length > 0) {
     return clauseName + ' ' + clauses.join(' AND ') + ' ';
   }
-  return '';
+  return ' ';
 }
 
 function addCreatedClauses(where, args, from, to) {
@@ -32,6 +32,7 @@ module.exports = {
       , args = [];
     addCreatedClauses(where, args, from, to);
     args.push(rcptDomain());
+    
     return db().manyOrNone("SELECT SUBSTRING(smtp_to, 0, POSITION('@' IN smtp_to)) AS localpart, COUNT(*) AS cnt " +
       "FROM request_dump.relay_messages " + 
       toWhereStr('WHERE', where) +
@@ -62,5 +63,20 @@ module.exports = {
       "OFFSET FLOOR(RANDOM()*(SELECT COUNT(*) FROM request_dump.relay_messages WHERE smtp_to = $1 || '@' || $2)) " +
       "LIMIT 1",
       args);
+  },
+
+  listEntries: function(from, to, localpart) {
+    var where = ["smtp_to like $1 || '@%'"]
+      , args = [localpart];
+    
+    addCreatedClauses(where, args, from, to);
+
+    return db().manyOrNone(
+      "SELECT smtp_from as email, created as received " +
+      "FROM request_dump.relay_messages " +
+      toWhereStr('WHERE', where) +
+      "ORDER BY created ASC",
+      args
+    );
   }
 };
