@@ -1,11 +1,9 @@
 'use strict';
 
-var rafflesApp = angular.module('rafflesApp', ['rafflesControllers', 'ui.bootstrap']);
+angular.module('rafflesApp', ['rafflesControllers', 'ui.bootstrap']);
 
-var rafflesControllers = angular.module('rafflesControllers', []);
-
-rafflesControllers.controller('RaffleListCtrl', ['$scope', '$http', '$log',
-  function($scope, $http, $log) {
+angular.module('rafflesControllers', [])
+  .controller('RaffleListCtrl', ['$scope', '$http', '$log', function($scope, $http, $log) {
 
     $scope.raffles = [];
     $scope.to_date = new Date();
@@ -30,7 +28,7 @@ rafflesControllers.controller('RaffleListCtrl', ['$scope', '$http', '$log',
       $scope.alerts.push({type: 'danger', msg: msg});
     }
     
-    $scope.updateView = function() {
+    $scope.getResults = function() {
       $http({
         method: 'GET',
         url: '/raffles',
@@ -46,8 +44,6 @@ rafflesControllers.controller('RaffleListCtrl', ['$scope', '$http', '$log',
     };
 
     $scope.pickWinner = function(localpart) {
-      $log.log("from: " + $scope.from_date.toISOString());
-      $log.log("to: " + $scope.to_date.toISOString());
       $http({
         method: 'GET',
         url: '/raffles/' + localpart + '/winner'
@@ -57,8 +53,10 @@ rafflesControllers.controller('RaffleListCtrl', ['$scope', '$http', '$log',
         } else {
           showInfo('Winner of raffle "' + localpart + '": ' + response.data.results.winner_address);
         }
+      }).catch(function(err) {
+        showError('While GETting from /raffles: ' + err.statusText);
       });
     };
 
-    $scope.updateView();
+    $scope.getResults();
   }]);
