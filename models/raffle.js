@@ -26,7 +26,7 @@ function addCreatedClauses(where, args, from, to) {
   addClause(where, args, 'created', '<', to);
 }
 
-module.exports.listRaffles =  function(from, to) {
+module.exports.listRaffles = function(from, to) {
   var where = []
     , args = [];
 
@@ -76,7 +76,7 @@ module.exports.listEntries = function(from, to, localpart) {
   addCreatedClauses(where, args, from, to);
 
   return db().manyOrNone(
-    "SELECT smtp_from as email, created as received " +
+    "SELECT smtp_from as email, created as received, subject " +
     "FROM request_dump.relay_messages " +
     toWhereStr('WHERE', where) +
     "ORDER BY created ASC",

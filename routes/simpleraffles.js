@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
   Raffle.listRaffles(req.query.from, req.query.to).then(function(lst) {
     return res.json({
       results: lst.map(function(raffle) {
-        console.log(raffle);
         raffle.count = parseInt(raffle.cnt);
         delete raffle.cnt;
         return raffle;
