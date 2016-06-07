@@ -43,7 +43,7 @@ router.get('/:raffleId/winner', function(req, res) {
 router.get('/:raffleId/entries', function(req, res) {
   Raffle.listEntries(req.query.from, req.query.to, req.params.raffleId).then(function(entries) {
     // return unique email address entries, the oldest is chosen
-    res.json({results: _.sortBy(_.uniq(entries, 'email'), 'email')});
+    res.json({results: _.sortBy(_.uniqBy(entries, 'email'), 'email')});
   }).fail(errorHandler(res));
 });
 
