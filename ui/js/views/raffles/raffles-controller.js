@@ -1,9 +1,8 @@
-angular.module('rafflesControllers', [
+angular.module('rafflesApp.controllers.raffleList', [
     'ui.router',
     'rafflesApp.services.raffles',
     'rafflesApp.services.alerts',
-    'rafflesApp.directive.date-picker',
-    'rafflesApp.directive.alert'
+    'rafflesApp.directives'
   ])
   .config(['$stateProvider', function($stateProvider) {
     $stateProvider
@@ -13,7 +12,7 @@ angular.module('rafflesControllers', [
         templateUrl: "js/views/raffles/raffles.html"
       });
   }])
-  .controller('RaffleListCtrl', ['$http', 'Raffle', 'Alerts', function($http, Raffle, Alerts) {
+  .controller('RaffleListCtrl', ['Raffle', 'Alerts', function(Raffle, Alerts) {
     var ctrl = this;
 
     ctrl.raffles = [];

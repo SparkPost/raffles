@@ -1,4 +1,4 @@
-angular.module('rafflesApp.directive.alert', [])
+angular.module('rafflesApp.directives.alert', [])
   .controller('alertController', ['$rootScope', function($rootScope) {
     var ctrl = this;
 

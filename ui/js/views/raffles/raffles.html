@@ -22,7 +22,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="raffle in ctrl.raffles">
-        <td>{{raffle.localpart}}</td>
+        <td><a ui-sref="entries({raffle: raffle.localpart})">{{raffle.localpart}}</a></td>
         <td>{{raffle.count}}</td>
         <td><button ng-click="ctrl.pickWinner(raffle.localpart)">Pick a winner</button></td>
       </tr>

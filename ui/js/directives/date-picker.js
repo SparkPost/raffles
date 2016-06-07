@@ -1,4 +1,4 @@
-angular.module('rafflesApp.directive.date-picker', ['rafflesApp.services.dates'])
+angular.module('rafflesApp.directives.date-picker', ['rafflesApp.services.dates'])
   .controller('datePickerController', ['Dates', function(Dates) {
     var ctrl = this;
     
