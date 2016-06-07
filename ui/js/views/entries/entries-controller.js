@@ -12,8 +12,22 @@ angular.module('rafflesApp.controllers.entriesList', [
         templateUrl: "js/views/entries/entries.html"
       });
   }])
-  .controller('EntriesListCtrl', ['Raffle', 'Alerts', function(Raffle, Alerts) {
+  .controller('EntriesListCtrl', ['$stateParams', 'Raffle', 'Alerts', function($stateParams, Raffle, Alerts) {
     var ctrl = this;
 
+    ctrl.raffle = $stateParams.raffle;
+    ctrl.entries = [];
+    
+    ctrl.getEntries = function() {
+      Raffle.listEntries(ctrl.raffle)
+        .then(function(entries) {
+          ctrl.entries = entries;
+        })
+        .catch(function(err) {
+          Alerts.addError(err);
+        });
+    };
+
+    ctrl.getEntries();
 
   }]);

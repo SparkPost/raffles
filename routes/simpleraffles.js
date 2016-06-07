@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
   Raffle.listRaffles(req.query.from, req.query.to).then(function(lst) {
     return res.json({
       results: lst.map(function(raffle) {
+        console.log(raffle);
         raffle.count = parseInt(raffle.cnt);
         delete raffle.cnt;
         return raffle;
@@ -22,7 +23,7 @@ router.get('/', function(req, res) {
 
 router.get('/:raffleId', function(req, res) {
   Raffle.getRaffle(req.query.from, req.query.to, req.params.raffleId).then(function(raffle) {
-    raffle.num_entries = parseInt(raffle.num_entries); 
+    raffle.num_entries = parseInt(raffle.num_entries);
     return res.json({ results: raffle });
   }).fail(errorHandler(res));
 });
@@ -42,7 +43,7 @@ router.get('/:raffleId/winner', function(req, res) {
 router.get('/:raffleId/entries', function(req, res) {
   Raffle.listEntries(req.query.from, req.query.to, req.params.raffleId).then(function(entries) {
     // return unique email address entries, the oldest is chosen
-    res.json({results: _.uniqBy(entries, 'email')});
+    res.json({results: _.sortBy(_.uniq(entries, 'email'), 'email')});
   }).fail(errorHandler(res));
 });
 

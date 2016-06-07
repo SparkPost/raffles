@@ -10,23 +10,42 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
           from: Dates.getFormattedFrom(),
           to: Dates.getFormattedTo()
         }
-      }).then(function(response) {
-        return response.data.results;
-      }).catch(errorFormatter);
+      })
+      .then(getResults)
+      .catch(errorFormatter);
     };
 
-    Raffle.pickWinner = function(localpart) {
+    Raffle.pickWinner = function(raffle) {
       return $http({
         method: 'GET',
-        url: '/raffles/' + localpart + '/winner'
-      }).then(function(response) {
+        url: '/raffles/' + raffle + '/winner'
+      })
+      .then(function(response) {
         if (response.data.errors) {
           throw new Error(response.errors.join('<br/>'));
         }
         
-        return response.data.results.winner_address;
-      }).catch(errorFormatter);
+        return getResults(response).winner_address;
+      })
+      .catch(errorFormatter);
     };
+
+    Raffle.listEntries = function(raffle) {
+      return $http({
+        method: 'GET',
+        url: '/raffles/' + raffle + '/entries',
+        params: {
+          from: Dates.getFormattedFrom(),
+          to: Dates.getFormattedTo()
+        }
+      })
+      .then(getResults)
+      .catch(errorFormatter);
+    };
+    
+    function getResults(response) {
+      return response.data.results;
+    }
 
     function errorFormatter(err) {
       throw new Error(err.data + ' (' + err.status + ')');

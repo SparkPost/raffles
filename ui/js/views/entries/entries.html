@@ -1,1 +1,30 @@
-<div>Entries here.</div>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <h3>SparkPost Raffles</h3>
+    <p>Below are the entries for the <em>{{ctrl.raffle}}@raffle.sparkpost.com</em> raffle.</p>
+  </div>
+</div>
+
+<alert></alert>
+
+<div class="col-xs-6 col-xs-offset-3">
+  <date-picker on-date-change="ctrl.getEntries()"></date-picker>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Email</th>
+        <th>Entry Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="entry in ctrl.entries">
+        <td>{{entry.email}}</td>
+        <td>{{entry.received}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
