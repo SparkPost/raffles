@@ -87,7 +87,7 @@ module.exports.listEntries = function(from, to, localpart) {
   ).then(function(rows) {
     // adds decoded RFC822 content to each row
     return q.all(_.map(rows, function(row) {
-      return rfc822Parser.parse(row.rfc822.toString('ascii'))
+      return rfc822Parser.parse(row.rfc822)
         .then(function(content) {
           row.content = content;
           delete row.rfc822;
