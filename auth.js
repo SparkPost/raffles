@@ -14,4 +14,4 @@ strat = new BasicStrategy(function(uid, passwd, next) {
 
 passport.use(strat);
 
-module.exports = passport.authenticate('basic', { session: false })
+module.exports = passport.authenticate('basic', { session: false });

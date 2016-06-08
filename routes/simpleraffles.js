@@ -4,6 +4,7 @@ var q = require('q')
   , config = require('config')
   , router = require('express').Router()
   , Raffle = require('../models/raffle')
+  , _ = require('lodash');
 
 module.exports = router;
 
@@ -16,18 +17,14 @@ router.get('/', function(req, res) {
         return raffle;
       })
     });
-  }).fail(function(err) {
-    res.status(500).send({errors: [err]});
-  });
+  }).fail(errorHandler(res));
 });
 
 router.get('/:raffleId', function(req, res) {
   Raffle.getRaffle(req.query.from, req.query.to, req.params.raffleId).then(function(raffle) {
-    raffle.num_entries = parseInt(raffle.num_entries); 
+    raffle.num_entries = parseInt(raffle.num_entries);
     return res.json({ results: raffle });
-  }).fail(function(err) {
-    res.status(500).send({errors: [err]});
-  });
+  }).fail(errorHandler(res));
 });
 
 router.get('/:raffleId/winner', function(req, res) {
@@ -39,7 +36,23 @@ router.get('/:raffleId/winner', function(req, res) {
       results: null,
       errors: [{ message: "This raffle has no entrants"}]
     });
-  }).fail(function (err) {
-    res.status(500).send({errors: [err]});
-  });
+  }).fail(errorHandler(res));
 });
+
+router.get('/:raffleId/entries', function(req, res) {
+  Raffle.listEntries(req.query.from, req.query.to, req.params.raffleId).then(function(entries) {
+    // return unique email address entries, the oldest is chosen
+    res.json({results: _.sortBy(_.uniqBy(entries, 'from'), 'from')});
+  }).fail(errorHandler(res));
+});
+
+/**
+ * Returns an error handler given the response
+ * @param res
+ * @returns {Function}
+ */
+function errorHandler(res) {
+  return function(err) {
+    res.status(500).send({errors: [err]});
+  }
+}

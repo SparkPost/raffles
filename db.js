@@ -1,11 +1,9 @@
 'use strict';
 
-var q = require('q')
-  , pgPromise = require('pg-promise')
+var pgPromise = require('pg-promise')
   , pgMonitor = require('pg-monitor')
   , config = require('config')
-  , pgOptions = {promiseLib: q}
-  , pgp;
+  , pgOptions = {promiseLib: require('q')};
 
 pgMonitor.attach(pgOptions);
 pgMonitor.detailed = true;

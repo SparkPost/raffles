@@ -2,52 +2,33 @@
 <html lang="en" ng-app="rafflesApp">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="vendor/angular/angular.js"></script>
+
   <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="vendor/angular/angular.js"></script>
+  <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+  <script src="js/services/date-service.js"></script>
+  <script src="js/services/raffle-service.js"></script>
+  <script src="js/services/alert-service.js"></script>
+
+  <script src="js/directives/date-picker.js"></script>
+  <script src="js/directives/alert.js"></script>
+  <script src="js/directives/module.js"></script>
+
+  <script src="js/views/raffles/raffles-controller.js"></script>
+  <script src="js/views/entries/entries-controller.js"></script>
+
+  <script src="js/views/module.js"></script>
   <script src="js/app.js"></script>
+
   <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
 </head>
-<body ng-controller="RaffleListCtrl">
-  <script type="text/ng-template" id="alert.html">
-    <div class="alert" role="alert">
-      <div ng-transclude></div>
-    </div>
-  </script>
+
+<body>
   <div class="container-fluid">
-    <div class="col-xs-8 col-xs-offset-2">
-      <h3>SparkPost Raffles</h3>
-      <p>Below is the set of recipient localparts currently in use for the <em>@raffle.sparkpost.com</em> inbound domain.</p>
-      <p>Each localpart represents a raffle and the count of entrants, people sending email to that localpart, is listed alongside.</p> 
-    </div>
-    <div class="col-xs-6 col-xs-offset-3">
-      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
-      {{alert.msg}}
-      </uib-alert>
-    </div>
-    <div class="col-xs-6 col-xs-offset-3">
-      <input type="datetime-local" name="from_date" ng-model="from_date" ng-model-options="{ debounce: 1000 }" ng-change="updateView()" />
-      <input type="datetime-local" name="to_date" ng-model="to_date" ng-model-options="{ debounce: 1000 }" ng-change="updateView()" />
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Raffle Name / Localpart</th>
-              <th># Entrants</th>
-              <td></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="raffle in raffles">
-              <td>{{raffle.localpart}}</td>
-              <td>{{raffle.count}}</td>
-              <td><button ng-click="pickWinner(raffle.localpart)">Pick a winner</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div ui-view></div>
   </div>
 </body>
 </html>

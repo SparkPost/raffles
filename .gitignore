@@ -2,3 +2,5 @@ node_modules/
 ui/vendor/
 npm-debug.log
 .env
+config/local.json
+.node-version
