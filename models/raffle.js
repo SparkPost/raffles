@@ -1,7 +1,10 @@
 'use strict';
 
 var config = require('config')
-  , db = require('../db');
+  , db = require('../db')
+  , _ = require('lodash')
+  , q = require('q')
+  , rfc822Parser = require('../lib/rfc822Parser');
 
 function rcptDomain() {
   return process.env.RCPT_DOMAIN || config.get('rcptdomain');
@@ -76,10 +79,23 @@ module.exports.listEntries = function(from, to, localpart) {
   addCreatedClauses(where, args, from, to);
 
   return db().manyOrNone(
-    "SELECT smtp_from as email, created as received, subject " +
+    "SELECT smtp_from as from, created as received, subject, rfc822 " +
     "FROM request_dump.relay_messages " +
     toWhereStr('WHERE', where) +
     "ORDER BY created ASC",
     args
-  );
+  ).then(function(rows) {
+    // adds decoded RFC822 content to each row
+    return q.all(_.map(rows, function(row) {
+      return rfc822Parser.parse(row.rfc822.toString('ascii'))
+        .then(function(content) {
+          row.content = content;
+          delete row.rfc822;
+          return row;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }));
+  });
 };
