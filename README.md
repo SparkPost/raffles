@@ -119,3 +119,71 @@ $ curl -s http://localhost:5000/raffles/dgray/winner | jq .
 }
 ```
 
+`/raffles/:raffleId/entries` - details about entries for a raffle:
+```bash
+$ curl -s http://localhost:5000/raffles/thedude/entries | jq .
+```
+```json
+{
+    "results": [
+        {
+            "content": {
+                "date": "2016-01-26T18:46:36.000Z",
+                "from": [
+                    {
+                        "address": "some.dude@sparkpost.com",
+                        "name": "Some Dude"
+                    }
+                ],
+                "headers": {
+                    "accept-language": "en-US",
+                    "content-language": "en-US",
+                    "content-type": "multipart/alternative; boundary=\"_000_D2CD6F8920EA2somedudesparkpostcom_\"",
+                    "date": "Tue, 26 Jan 2016 18:46:36 +0000",
+                    "dkim-signature": "v=1; a=rsa-sha256; c=relaxed/simple; d=sparkpost.com; s=dkim1024; t=1453833998; bh=skhPF1DbeM5zGroj96RyrZ5fgdqbVDMk0cnZMUWQQvU=; h=From:To:Subject:Date:Message-ID; b=W9/6+9E3F0y9oXKrWLb/dbao+AyY77DXs1AxPgn61leURRxxoEgIM4L8O4qHqYApm DnY+fcjIozp90fe6rEd5RYA7saQoICYkCZpO+OJeYkdS5xNukUTFFS7ZwxGqaKYg0m JmUwI7Utnr5FRTUQUsod56YqhVvYaCFFgWGuXHL8=",
+                    "from": "Some Dude <some.dude@sparkpost.com>",
+                    "message-id": "<D2CD6F89.20EA2%some.dude@sparkpost.com>",
+                    "mime-version": "1.0",
+                    "received": [
+                        "from [204.232.133.73] ([204.232.133.73:53427] helo=a.mx.messagesystems.com) by momentum3.platform1.us-west-2.aws.cl.messagesystems.com (envelope-from <some.dude@sparkpost.com>) (ecelerity 4.2.10.52432 r(Core:4.2.10.0)) with ESMTP id 3B/58-07606-01FB7A65; Tue, 26 Jan 2016 18:46:40 +0000",
+                        "from [108.166.43.129] ([108.166.43.129:35088] helo=smtp11.relay.ord1c.emailsrvr.com) by b.mx.messagesystems.com (envelope-from <some.dude@sparkpost.com>) (ecelerity 3.6.0.39694 r(Platform:3.6.0.0)) with ESMTP id C5/B2-28631-E0FB7A65; Tue, 26 Jan 2016 13:46:38 -0500",
+                        "from smtp11.relay.ord1c.emailsrvr.com (localhost.localdomain [127.0.0.1]) by smtp11.relay.ord1c.emailsrvr.com (SMTP Server) with ESMTP id 9EBB32804D8 for <thedude@hey.avocado.industries>; Tue, 26 Jan 2016 13:46:38 -0500 (EST)",
+                        "from smtp11.relay.ord1c.emailsrvr.com (localhost.localdomain [127.0.0.1]) by smtp11.relay.ord1c.emailsrvr.com (SMTP Server) with ESMTP id 755A528041F for <thedude@hey.avocado.industries>; Tue, 26 Jan 2016 13:46:38 -0500 (EST)",
+                        "from smtp192.mex05.mlsrvr.com (unknown [184.106.31.85]) by smtp11.relay.ord1c.emailsrvr.com (SMTP Server) with ESMTPS id 426212804DE for <thedude@hey.avocado.industries>; Tue, 26 Jan 2016 13:46:38 -0500 (EST)",
+                        "from smtp192.mex05.mlsrvr.com ([UNAVAILABLE]. [184.106.31.85]) (using TLSv1 with cipher AES256-SHA) by 0.0.0.0:25 (trex/5.5.4); Tue, 26 Jan 2016 13:46:38 -0500",
+                        "from ORD2MBX06B.mex05.mlsrvr.com ([fe80::4cba:20ff:fe52:4153]) by ORD2HUB07.mex05.mlsrvr.com ([fe80::d6ae:52ff:fe7f:66a7%15]) with mapi id 14.03.0235.001; Tue, 26 Jan 2016 12:46:37 -0600"
+                    ],
+                    "return-path": "<some.dude@sparkpost.com>",
+                    "subject": "Hiya DevRel!",
+                    "thread-index": "AQHRWGnil7lSt1uheEaxS17Z320Kog==",
+                    "thread-topic": "Hiya DevRel!",
+                    "to": "\"thedude@hey.avocado.industries\" <thedude@hey.avocado.industries>",
+                    "x-ms-has-attach": "",
+                    "x-ms-tnef-correlator": "",
+                    "x-originating-ip": "[86.141.41.165]",
+                    "x-sender-id": "some.dude@sparkpost.com",
+                    "x-smtpdoctor-processed": "csmtpprox beta"
+                },
+                "html": "<html>\n<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n</head>\n<body style=\"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; color: rgb(0, 0, 0); font-size: 14px; font-family: Calibri, sans-serif;\">\n<div>This. Is. A Test.</div>\n<div><br>\n</div>\n</body>\n</html>\n",
+                "messageId": "D2CD6F89.20EA2%some.dude@sparkpost.com",
+                "priority": "normal",
+                "receivedDate": "2016-01-26T18:46:40.000Z",
+                "subject": "Hiya DevRel!",
+                "text": "This. Is. A Test.\n\n",
+                "to": [
+                    {
+                        "address": "thedude@hey.avocado.industries",
+                        "name": ""
+                    }
+                ]
+            },
+            "from": "some.dude@sparkpost.com",
+            "received": "2016-01-26T18:46:41.272Z",
+            "subject": "Hiya DevRel!"
+        }
+    ]
+}
+
+```
+
+
