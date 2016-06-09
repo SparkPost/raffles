@@ -5,8 +5,8 @@ var md5 = require('md5')
   , BasicStrategy = require('passport-http').BasicStrategy
   , strat;
 
-strat = new BasicStrategy(function(uid, passwd, next) {
-  if (uid === 'devrel' && md5(passwd) === '0e7d04e99a4400d4c6964735d411c30b') {
+strat = new BasicStrategy(function(uid, password, next) {
+  if (uid === process.env.USERNAME && md5(password) === process.env.PASSWORD_HASH) {
     return next(null, {});
   }
   return next(null, false);
