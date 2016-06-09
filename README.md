@@ -47,20 +47,25 @@ You can now access the app from https://<your-app-domain>/raffles
 
 Create a local sparkies database.  Note: this creates a Postgres DB named `avocadomail`:
 ```bash
-psql < avocadomail.sql
+psql < tools/avocadomail.sql
 ```
 
-Edit config/default.json to point to your local database:
-```javascript
-{
-  "maildburl": "postgres://yourlogin@localhost/avocadomail",
-  ...
-}
-```
-
-Start the app locally:
+Create a .env file with the following values:
 ```bash
+export WEBHOOK_CONSUMER_DB_URL="postgres://<your_user>@localhost/avocadomail"
+export SPARKPOST_API_KEY=<YOUR_API_KEY>
+export RCPT_DOMAIN=hey.avocado.industries
+```
+
+Source the .env file and start the app locally:
+```bash
+source .env
 npm run web
+```
+
+You can also run the `dev` command to set a watcher on files to restart the server on every save:
+```bash
+npm run dev
 ```
 
 ### API Usage
