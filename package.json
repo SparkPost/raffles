@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint-server": "eslint src --ignore-pattern=src/public --fix",
-    "lint-public": "eslint src/public/js --env browser --global angular --rule \"{consistent-this: ['off']}\" --fix",
+    "lint-public": "eslint src/public/js --config .eslint-public.js --fix",
     "test": "npm run lint-server && npm run lint-public",
     "web": "node src/index.js",
     "dev": "nodemon src/index.js",
