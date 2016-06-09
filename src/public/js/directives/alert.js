@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('rafflesApp.directives.alert', [])
   .controller('alertController', ['$rootScope', function($rootScope) {
     var ctrl = this;

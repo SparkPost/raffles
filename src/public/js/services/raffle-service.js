@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
   .service('Raffle', ['$http', 'Dates', function($http, Dates) {
     var Raffle = this;

@@ -1,7 +1,9 @@
+'use strict';
+
 angular.module('rafflesApp.services.dates', [])
   .service('Dates', [function() {
-    var to,
-      from;
+    var to
+      , from;
 
     to = new Date();
     to.setHours(12);

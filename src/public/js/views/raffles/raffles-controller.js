@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('rafflesApp.controllers.raffleList', [
   'ui.router',
   'rafflesApp.services.raffles',

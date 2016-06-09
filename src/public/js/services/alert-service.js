@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('rafflesApp.services.alerts', [])
   .service('Alerts', ['$rootScope', function($rootScope) {
     var Alerts = this;
