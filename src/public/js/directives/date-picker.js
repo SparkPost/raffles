@@ -1,7 +1,7 @@
 angular.module('rafflesApp.directives.date-picker', ['rafflesApp.services.dates'])
   .controller('datePickerController', ['Dates', function(Dates) {
     var ctrl = this;
-    
+
     ctrl.from = Dates.getFrom();
     ctrl.to = Dates.getTo();
 
@@ -9,7 +9,7 @@ angular.module('rafflesApp.directives.date-picker', ['rafflesApp.services.dates'
       Dates.setFrom(ctrl.from);
       Dates.setTo(ctrl.to);
       ctrl.onDateChange();
-    }
+    };
   }])
   .directive('datePicker', function() {
     return {
@@ -20,5 +20,5 @@ angular.module('rafflesApp.directives.date-picker', ['rafflesApp.services.dates'
       scope: {
         onDateChange: '&'
       }
-    }
+    };
   });

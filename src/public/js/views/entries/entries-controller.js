@@ -1,15 +1,15 @@
 angular.module('rafflesApp.controllers.entriesList', [
-    'ui.router',
-    'rafflesApp.services.raffles',
-    'rafflesApp.services.alerts',
-    'rafflesApp.directives'
-  ])
+  'ui.router',
+  'rafflesApp.services.raffles',
+  'rafflesApp.services.alerts',
+  'rafflesApp.directives'
+])
   .config(['$stateProvider', function($stateProvider) {
     $stateProvider
       .state('entries', {
-        url: "/raffles/:raffle",
+        url: '/raffles/:raffle',
         controller: 'EntriesListCtrl as ctrl',
-        templateUrl: "js/views/entries/entries.html"
+        templateUrl: 'js/views/entries/entries.html'
       });
   }])
   .controller('EntriesListCtrl', ['$stateParams', 'Raffle', 'Alerts', function($stateParams, Raffle, Alerts) {
@@ -17,7 +17,7 @@ angular.module('rafflesApp.controllers.entriesList', [
 
     ctrl.raffle = $stateParams.raffle;
     ctrl.entries = [];
-    
+
     ctrl.getEntries = function() {
       Raffle.listEntries(ctrl.raffle)
         .then(function(entries) {

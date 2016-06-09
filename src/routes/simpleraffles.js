@@ -1,7 +1,6 @@
 'use strict';
 
-var q = require('q')
-  , router = require('express').Router()
+var router = require('express').Router() // eslint-disable-line new-cap
   , Raffle = require('../models/raffle')
   , _ = require('lodash');
 
@@ -33,7 +32,7 @@ router.get('/:raffleId/winner', function(req, res) {
     }
     return res.json({
       results: null,
-      errors: [{ message: "This raffle has no entrants"}]
+      errors: [{ message: 'This raffle has no entrants'}]
     });
   }).fail(errorHandler(res));
 });
@@ -53,5 +52,5 @@ router.get('/:raffleId/entries', function(req, res) {
 function errorHandler(res) {
   return function(err) {
     res.status(500).send({errors: [err]});
-  }
+  };
 }

@@ -19,5 +19,5 @@ angular.module('rafflesApp.directives.alert', [])
       controller: 'alertController as ctrl',
       bindToController: true,
       scope: {}
-    }
+    };
   });

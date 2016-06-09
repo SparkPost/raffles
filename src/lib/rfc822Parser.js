@@ -1,6 +1,8 @@
-var q = require('q');
-var MailParser = require('mailparser').MailParser;
-var stream = require('stream');
+'use strict';
+
+var q = require('q')
+  , MailParser = require('mailparser').MailParser
+  , stream = require('stream');
 
 // make a promise interface
 module.exports.parse = q.nfbind(parse);

@@ -1,7 +1,7 @@
 angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
   .service('Raffle', ['$http', 'Dates', function($http, Dates) {
     var Raffle = this;
-    
+
     Raffle.list = function() {
       return $http({
         method: 'GET',
@@ -24,7 +24,7 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
         if (response.data.errors) {
           throw new Error(response.errors.join('<br/>'));
         }
-        
+
         return getResults(response).winner_address;
       })
       .catch(errorFormatter);
@@ -42,7 +42,7 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
       .then(getResults)
       .catch(errorFormatter);
     };
-    
+
     function getResults(response) {
       return response.data.results;
     }

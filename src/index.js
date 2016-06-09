@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express')
   , bodyParser = require('body-parser')
   , passport = require('passport')
@@ -6,7 +8,8 @@ var express = require('express')
   , raffleRouter = require('./routes/simpleraffles')
   , consumerRouter = require('./routes/consumer')
   , auth = require('./lib/auth')
-  , srv = require('http').Server(app);
+  , logger = require('./lib/logger')
+  , srv = require('http').Server(app); // eslint-disable-line new-cap
 
 app.use(bodyParser.json({
   limit: '100kb'
@@ -23,6 +26,6 @@ app.use('/raffles', auth, raffleRouter);
 app.use('/', express.static(__dirname + '/public/'));
 
 srv.listen(process.env.PORT || 3000, function() {
-  console.log('Listening on port ' + srv.address().port);
+  logger.info('Listening on port ' + srv.address().port);
 });
 
