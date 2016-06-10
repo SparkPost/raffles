@@ -2,11 +2,14 @@
   "name": "raffles",
   "version": "0.0.1",
   "description": "A SparkPost-driven raffle app",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "web": "node index.js",
-    "dev": "nodemon index.js",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "lint-server": "eslint src --ignore-pattern=src/public --fix",
+    "lint-public": "eslint src/public/js --config .eslint-public.js --fix",
+    "test": "npm run lint-server && npm run lint-public",
+    "web": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "postinstall": "bower install"
   },
   "keywords": [
     "sparkpost",
@@ -20,11 +23,10 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "bower": "^1.7.2",
-    "config": "^1.19.0",
     "express": "^4.13.4",
     "lodash": "^4.13.1",
     "mailparser": "^0.6.0",
-    "md5": "^2.0.0",
+    "md5": "^2.1.0",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
@@ -32,10 +34,13 @@
     "pg-promise": "^3.0.3",
     "q": "^1.4.1",
     "rfc822-json": "^0.3.6",
-    "sparkpost": "^1.3.1"
+    "sparkpost": "^1.3.1",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "eslint": "^2.11.1",
+    "eslint-config-sparkpost": "^1.0.1",
     "nodemon": "^1.9.2"
   }
 }

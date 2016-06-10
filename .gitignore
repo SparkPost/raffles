@@ -1,5 +1,5 @@
 node_modules/
-ui/vendor/
+src/public/vendor/
 npm-debug.log
 .env
 config/local.json

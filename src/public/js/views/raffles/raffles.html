@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <h3>SparkPost Raffles</h3>
+    <p>Below is the set of recipient localparts currently in use for the <em>@raffle.sparkpost.com</em> inbound domain.</p>
+    <p>Each localpart represents a raffle and the count of entrants, people sending email to that localpart, is listed alongside.</p>
+  </div>
+</div>
+
+<alert></alert>
+
+<div class="col-xs-6 col-xs-offset-3">
+  <date-picker on-date-change="ctrl.getResults()"></date-picker>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Raffle Name / Localpart</th>
+        <th># Entrants</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="raffle in ctrl.raffles">
+        <td><a ui-sref="entries({raffle: raffle.localpart})">{{raffle.localpart}}</a></td>
+        <td>{{raffle.count}}</td>
+        <td><button ng-click="ctrl.pickWinner(raffle.localpart)">Pick a winner</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
