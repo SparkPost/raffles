@@ -64,7 +64,12 @@ Create a local sparkies database.  Note: this creates a Postgres DB named `avoca
 psql < tools/avocadomail.sql
 ```
 
-Create a .env file with the following values:
+Install dependencies (this will install both NPM and Bower deps):
+```bash
+npm install
+```
+
+Create a .env file with the following values and `source` it:
 ```bash
 export WEBHOOK_CONSUMER_DB_URL="postgres://<your_user>@localhost/avocadomail"
 export SPARKPOST_API_KEY=<YOUR_API_KEY>
@@ -74,15 +79,8 @@ export PASSWORD_HASH=<md5 hash of your basic auth password>
 ```
 
 You can use the `md5it.js` command line tool to generate your password hash:
-
 ```
 node tools/md5it YOUR_PASSWORD
-```
-
-Source the .env file and install dependencies:
-```bash
-source .env
-npm install
 ```
 
 Start the app locally:
