@@ -30,7 +30,7 @@ $ git clone http://github.com/Sparkpost/raffles
 This app uses the following environment variables for configuration. 
 
 | Variable | Example | Description |
-------------------------------------
+| -------- | ------- | ----------- |
 | SPARKPOST_API_KEY | 42188099814736e582812b07a4e0bd2d | Your SparkPost API key |
 | WEBHOOK_CONSUMER_DB | postgres://<your_user>@localhost/avocadomail | The path to your Postgres install |
 | RCPT_DOMAIN | hey.avocado.industries | The `to` domain used to query raffle results |
@@ -55,7 +55,7 @@ $ git push heroku master
 
 Set the other environment variables with the `heroku config:set` command.
 
-You can now access the app from https://<your-app-domain>/raffles
+You can now access the app from `https://<your-app>.herokuapp.com`
 
 ### Running Locally
 
