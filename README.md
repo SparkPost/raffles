@@ -1,6 +1,10 @@
-## SparkPost Developer Hub Raffles
+<a href="https://www.sparkpost.com"><img src="https://www.sparkpost.com/sites/default/files/attachments/SparkPost_Logo_2-Color_Gray-Orange_RGB.svg" width="200px"/></a>
 
-This is a small app that consumes inbound email from the [sparkies](http://github/com/Sparkpost/sparkies) relay webhook database and interprets it as a set of raffle entries.
+[Sign up](https://app.sparkpost.com/sign-up?src=Dev-Website&sfdcid=70160000000pqBb) for a SparkPost account and visit our [Developer Hub](https://developers.sparkpost.com) for even more content.
+
+# SparkPost Raffles App
+
+This is a Node.js app that consumes inbound email from a relay webhook database and interprets it as a set of raffle entries.
 
 Each recipient address localpart represents a raffle and each received email represents an entrant to that raffle.
 
@@ -14,7 +18,8 @@ Subject: Pick Me!
 
 ...it interprets it as an entry to the `winstuff` raffle by `bob@entrant.com`.
 
-##Prerequisites
+## Prerequisites
+
 - Node (tested on 0.12)
 - PostgreSQL
 - Heroku toolbelt (optional)
@@ -22,7 +27,7 @@ Subject: Pick Me!
 ## Installation/Configuration/Running Locally
 
 ```bash
-$ git clone http://github.com/Sparkpost/raffles
+$ git clone https://github.com/SparkPost/raffles
 ```
 
 ### Configuration
@@ -37,25 +42,6 @@ This app uses the following environment variables for configuration.
 | BA_USERNAME | sparkpostisamazing | The username to use for basic auth |
 | PASSWORD_HASH | 60b1198f6b6f25fd67f7856e92923231 | md5 hash of your basic auth password | 
 
-
-### Using Heroku
-
-Find the Sparkies app's heroku-postgresql addon name:
-
-```bash
-$ heroku addons
-```
-
-Create a Heroku app, attach the Sparkies heroku-postgresql addon, configure the app and push:
-```bash
-$ heroku create
-$ heroku addons:attach <sparkies heroku-postgresql addon name> -a <your app name> --as WEBHOOK_CONSUMER_DB
-$ git push heroku master
-```
-
-Set the other environment variables with the `heroku config:set` command.
-
-You can now access the app from `https://<your-app>.herokuapp.com`
 
 ### Running Locally
 
@@ -93,7 +79,7 @@ You can also run the `dev` command to set a watcher on files to restart the serv
 npm run dev
 ```
 
-### API Usage
+## API Usage
 Note: all endpoints support `from` and `to` query date/time parameters to narrow their focus to a particular time window.
 If the JS Date type can parse it, you can use it in `from` or `to`.
 
@@ -217,3 +203,16 @@ $ curl -s http://localhost:5000/raffles/thedude/entries | jq .
 ```
 
 
+## Using Heroku
+
+Create a Heroku app, attach the Sparkies heroku-postgresql addon, configure the app and push:
+
+```bash
+$ heroku create
+$ heroku addons:create heroku-postgresql -a <your app name>
+$ git push heroku master
+```
+
+Set the other environment variables with the `heroku config:set` command.
+
+You can now access the app from `https://<your-app>.herokuapp.com`
