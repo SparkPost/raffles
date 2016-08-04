@@ -4,6 +4,25 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
   .service('Raffle', ['$http', 'Dates', function($http, Dates) {
     var Raffle = this;
 
+    Raffle.getCount = function(raffle) {
+      return $http({
+        method: 'GET',
+        url: '/raffles/' + raffle,
+        params: {
+          from: Dates.getFormattedFrom(),
+          to: Dates.getFormattedTo()
+        }
+      })
+      .then(function(response) {
+        if (response.data.errors) {
+          throw new Error(response.errors.join('<br/>'));
+        }
+
+        return getResults(response).num_entries;
+      })
+      .catch(errorFormatter);
+    };
+
     Raffle.list = function() {
       return $http({
         method: 'GET',

@@ -5,3 +5,75 @@ h1 {
   margin: 0;
   color: #ffffff;
 }
+
+body.page-dashboard {
+  background-image: url(assets/images/Background_Pattern.png);
+  font-family: 'Gotham Narrow SSm A','Gotham Narrow SSm B',sans-serif';
+}
+
+.page-dashboard .title {
+  color: #ffffff;
+  font-size: 48pt;
+  font-weight: 100;
+}
+
+.page-dashboard .main {
+  border-top: solid #fa6423 10px;
+  margin: 25px;
+}
+
+.page-dashboard .count {
+  color: #55555a;
+  background-color: #ffffff;
+  height: 420px;
+}
+
+.page-dashboard .count hr {
+  width: 200px;
+  color: #d5d5d8;
+}
+
+.page-dashboard .count-title {
+  font-size: 28pt;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.page-dashboard .count-num {
+  font-size: 100pt;
+  font-weight: 100;
+  color: #fa6423;
+}
+
+.page-dashboard .entries {
+  color: #55555a;
+  background-color: #f2f2f5;
+  border-left: solid #d5d5d8 1px;
+  height: 420px;
+}
+
+.page-dashboard .entries-title {
+  margin: 25px;
+  font-size: 19pt;
+  font-weight: bold;
+}
+
+.page-dashboard .entries dt {
+  text-align:  left;
+}
+
+.page-dashboard .entries dl {
+  margin: auto 25% auto 25%;
+}
+
+.page-dashboard .enter {
+  color: white;
+  font-size: 18pt;
+  font-weight: 100;
+}
+
+.page-dashboard .enter a {
+  color: #37aadc;
+  font-weight: bold;
+  text-decoration: none;
+}

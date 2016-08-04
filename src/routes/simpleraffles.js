@@ -2,6 +2,7 @@
 
 var router = require('express').Router() // eslint-disable-line new-cap
   , Raffle = require('../models/raffle')
+  , qr = require('node-qr-image')
   , _ = require('lodash');
 
 module.exports = router;
@@ -23,6 +24,20 @@ router.get('/:raffleId', function(req, res) {
     raffle.num_entries = parseInt(raffle.num_entries);
     return res.json({ results: raffle });
   }).fail(errorHandler(res));
+});
+
+router.get('/:raffleId/qr-code.png', function(req, res) {
+  var link = 'mailto:' + req.params.raffleId + '@' + process.env.RCPT_DOMAIN
+    , size = parseInt(req.query.size || 100)
+    , img = null;
+  try {
+    img = qr.image(link, {size: size});
+    res.writeHead(200, {'Content-Type': 'image/png'});
+    img.pipe(res);
+  } catch (e) {
+    res.writeHead(414, {'Content-Type': 'text/html'});
+    res.end('<h1>414 Request-URI Too Large</h1>');
+  }
 });
 
 router.get('/:raffleId/winner', function(req, res) {

@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="title">Enter to Win a Tessel 2</div>
+    <date-picker on-date-change="ctrl.getCount()"></date-picker>
+    <alert></alert>
+  </div>
+</div>
+<div class="row main">
+  <div class="col-md-5 text-center count">
+    <div class="row"><div class="count-title">Count:</div></div>
+    <div class="row"><hr /></div>
+    <div class="row"><div class="center-block count-num">{{ctrl.count}}</div></div>
+  </div>
+  <div class="col-md-7 entries">
+    <div class="row text-center entries-title">Latest Entries:</div>
+    <div class="row">
+      <dl class="dl-horizontal">
+        <dt ng-repeat-start="entry in ctrl.recentEntries">{{entry.email}}</dt>
+        <dd ng-repeat-end>{{entry.subject}}</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10 text-right enter">
+    To enter, scan the code: <br />
+    or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
+  </div>
+  <div class="col-md-2">
+    <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
+  </div>
+</div>

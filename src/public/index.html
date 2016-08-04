@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="rafflesApp">
 <head>
+  <title>SparkPost Raffles</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <script src="vendor/jquery/dist/jquery.min.js"></script>
@@ -8,10 +9,12 @@
   <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 
   <script src="js/services/date-service.js"></script>
   <script src="js/services/raffle-service.js"></script>
   <script src="js/services/alert-service.js"></script>
+  <script src="js/services/socket-service.js"></script>
 
   <script src="js/directives/date-picker.js"></script>
   <script src="js/directives/alert.js"></script>
@@ -19,14 +22,16 @@
 
   <script src="js/views/raffles/raffles-controller.js"></script>
   <script src="js/views/entries/entries-controller.js"></script>
+  <script src="js/views/dashboard/dashboard-controller.js"></script>
 
   <script src="js/views/module.js"></script>
   <script src="js/app.js"></script>
 
   <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="app.css" />
 </head>
 
-<body>
+<body ng-cloak class="page page-{{stateData.bodyClass}}">
   <div class="container-fluid">
     <div ui-view></div>
   </div>
