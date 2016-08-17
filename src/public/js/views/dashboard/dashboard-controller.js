@@ -1,4 +1,5 @@
 'use strict';
+/*globals $:false */
 
 angular.module('rafflesApp.controllers.dashboard', [
   'ui.router',
@@ -21,7 +22,12 @@ angular.module('rafflesApp.controllers.dashboard', [
   .controller('DashboardCtrl', ['$stateParams', '$sce', 'Raffle', 'Alerts', 'Socket', function($stateParams, $sce, Raffle, Alerts, Socket) {
     var ctrl = this;
 
+    ctrl.editing = false;
     ctrl.raffle = $stateParams.raffle;
+
+    var strStoredRaffle = localStorage.getItem(ctrl.raffle) || {};
+    ctrl.storedRaffle = JSON.parse(strStoredRaffle);
+    ctrl.storedRaffle.title = ctrl.storedRaffle.title || 'Enter to Win';
     ctrl.count = 0;
     ctrl.recentEntries = [
       /*{ email: 'username@company.com', subject: 'Subject Title for Raffle'},
@@ -42,6 +48,33 @@ angular.module('rafflesApp.controllers.dashboard', [
         });
     };
 
+    ctrl.getRecentEntries = function() {
+      Raffle.listEntries(ctrl.raffle, { sort: 'created DESC', limit: 5 })
+        .then(function(entries) {
+          ctrl.recentEntries = entries.map(function(entry) {
+            return {
+              email: entry.from,
+              subject: entry.subject
+            };
+          });
+        });
+    };
+
+    ctrl.init_dashboard = function() {
+      ctrl.getCount();
+      ctrl.getRecentEntries();
+    };
+
+    ctrl.onEditClick = function() {
+      ctrl.editing = true;
+      setTimeout(function() { $('#txtTitle').focus();}, 0);
+    };
+
+    ctrl.onEditSave = function() {
+      ctrl.editing = false;
+      localStorage.setItem(ctrl.raffle, JSON.stringify(ctrl.storedRaffle));
+    };
+
     Socket.on('connect', function() {
       Socket.emit('raffle', ctrl.raffle);
     });
@@ -54,6 +87,6 @@ angular.module('rafflesApp.controllers.dashboard', [
       }
     });
 
-    ctrl.getCount();
+    ctrl.init_dashboard();
 
   }]);

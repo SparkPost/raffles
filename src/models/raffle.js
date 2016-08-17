@@ -69,22 +69,39 @@ module.exports.pickWinner = function(from, to, localpart) {
     args);
 };
 
-module.exports.listEntries = function(from, to, localpart) {
-  var where = ['smtp_to like $1 || \'@%\'']
-    , args = [localpart];
+module.exports.listEntries = function(localpart, options) {
+  var where = ['smtp_to = $1 || \'@\' || $2']
+    , args = [localpart, rcptDomain]
+    , query;
 
-  addCreatedClauses(where, args, from, to);
+  options = options || {};
+  options.orderBy = options.orderBy || 'created ASC';
+  if (!options.orderBy.match(/^\w+(?:\s+(?:asc|desc)\s*)?$/i)) {
+    throw new Error('illegal \'order by\' clause');
+  }
 
-  return db().manyOrNone(
-    'SELECT smtp_from as from, created as received, subject, rfc822 ' +
-    'FROM request_dump.relay_messages ' +
-    toWhereStr('WHERE', where) +
-    'ORDER BY created ASC',
-    args
-  ).then(function(rows) {
+  addCreatedClauses(where, args, options.from, options.to);
+
+  query = 'SELECT smtp_from as from, created as received, subject, rfc822 ' +
+                'FROM request_dump.relay_messages ' +
+                toWhereStr('WHERE', where) +
+                'ORDER BY ' + options.orderBy;
+
+  if (options.limit) {
+    // only allow the specific format we expect
+    if (parseInt(options.limit, 0) > 0) {
+      query += ' LIMIT ' + options.limit;
+    } else {
+      // otherwise: bad limit clause, asplode
+      throw new Error('illegal \'limit\' clause');
+    }
+  }
+
+  return db().manyOrNone(query, args)
+    .then(function(rows) {
     // adds decoded RFC822 content to each row
-    return q.all(_.map(rows, function(row) {
-      return rfc822Parser.parse(row.rfc822)
+      return q.all(_.map(rows, function(row) {
+        return rfc822Parser.parse(row.rfc822)
         .then(function(content) {
           row.content = content;
           delete row.rfc822;
@@ -93,6 +110,6 @@ module.exports.listEntries = function(from, to, localpart) {
         .catch(function(err) {
           logger.error(err);
         });
-    }));
-  });
+      }));
+    });
 };

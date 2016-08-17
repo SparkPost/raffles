@@ -1,32 +1,45 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <div class="title">Enter to Win a Tessel 2</div>
-    <date-picker on-date-change="ctrl.getCount()"></date-picker>
+    <h1 ng-hide="ctrl.editing" ng-click="ctrl.onEditClick($event)">{{ctrl.storedRaffle.title}}</h1>
+    <form ng-show="ctrl.editing" ng-submit="ctrl.onEditSave()">
+      <input id="txtTitle" class="inline-edit" type="text" ng-model="ctrl.storedRaffle.title" ng-required />
+    </form>
+    <date-picker on-date-change="ctrl.init_dashboard()"></date-picker>
     <alert></alert>
   </div>
 </div>
-<div class="row main">
-  <div class="col-md-5 text-center count">
-    <div class="row"><div class="count-title">Count:</div></div>
-    <div class="row"><hr /></div>
-    <div class="row"><div class="center-block count-num">{{ctrl.count}}</div></div>
+<div class="row entry-data">
+  <div class="col-md-4 col-md-offset-1 text-center">
+    <div class="count panel panel-default">
+      <div class="panel-body">
+        <div class="section-title">Count:</div>
+        <hr />
+        <div class="center-block count-num">{{ctrl.count}}</div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-7 entries">
-    <div class="row text-center entries-title">Latest Entries:</div>
-    <div class="row">
-      <dl class="dl-horizontal">
-        <dt ng-repeat-start="entry in ctrl.recentEntries">{{entry.email}}</dt>
-        <dd ng-repeat-end>{{entry.subject}}</dd>
-      </dl>
+  <div class="col-md-6">
+    <div class="entries panel panel-default">
+      <div class="panel-body">
+        <div class="section-title">Latest Entries:</div>
+        <table class="table">
+          <tbody>
+            <tr ng-repeat="entry in ctrl.recentEntries">
+              <td>{{entry.email}}</td>
+              <td>{{entry.subject}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-10 text-right enter">
-    To enter, scan the code: <br />
-    or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
-  </div>
-  <div class="col-md-2">
+<div class="row entry-info">
+  <div class="col-lg-10 col-lg-offset-1">
+    <p>
+      To enter, scan the code: <br />
+      or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
+    </p>
     <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
   </div>
 </div>

@@ -1,4 +1,8 @@
-<form >
-  <input type="datetime-local" name="from" ng-model="ctrl.from" ng-model-options="{ debounce: 1000 }" ng-change="ctrl.onChange()" />
-  <input type="datetime-local" name="to" ng-model="ctrl.to" ng-model-options="{ debounce: 1000 }" ng-change="ctrl.onChange()" />
+<form class="row form-inline">
+  <div class="col-md-6 text-right">
+    <input class="form-control" type="datetime-local" name="from" ng-model="ctrl.from" ng-model-options="{ debounce: 1000 }" ng-change="ctrl.onChange()" />
+  </div>
+  <div class="col-md-6 text-left">
+    <input class="form-control" type="datetime-local" name="to" ng-model="ctrl.to" ng-model-options="{ debounce: 1000 }" ng-change="ctrl.onChange()" />
+  </div>
 </form>

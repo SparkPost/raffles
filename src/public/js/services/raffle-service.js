@@ -51,14 +51,25 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
       .catch(errorFormatter);
     };
 
-    Raffle.listEntries = function(raffle) {
+    Raffle.listEntries = function(raffle, options) {
+      var params = {
+        from: Dates.getFormattedFrom(),
+        to: Dates.getFormattedTo()
+      };
+      options = options || {};
+
+      if(options.sort) {
+        params.sort = options.sort;
+      }
+
+      if(options.limit) {
+        params.limit = options.limit;
+      }
+
       return $http({
         method: 'GET',
         url: '/raffles/' + raffle + '/entries',
-        params: {
-          from: Dates.getFormattedFrom(),
-          to: Dates.getFormattedTo()
-        }
+        params: params
       })
       .then(getResults)
       .catch(errorFormatter);
