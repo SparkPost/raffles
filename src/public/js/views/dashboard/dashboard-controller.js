@@ -25,9 +25,8 @@ angular.module('rafflesApp.controllers.dashboard', [
     ctrl.editing = false;
     ctrl.raffle = $stateParams.raffle;
 
-    var strStoredRaffle = localStorage.getItem(ctrl.raffle) || {};
+    var strStoredRaffle = localStorage.getItem(ctrl.raffle) || '{"title":"Enter to Win"}';
     ctrl.storedRaffle = JSON.parse(strStoredRaffle);
-    ctrl.storedRaffle.title = ctrl.storedRaffle.title || 'Enter to Win';
     ctrl.count = 0;
     ctrl.recentEntries = [
       /*{ email: 'username@company.com', subject: 'Subject Title for Raffle'},
