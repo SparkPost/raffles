@@ -1,39 +1,37 @@
 'use strict';
 
-var Q = require('q')
-  , router = require('express').Router() // eslint-disable-line new-cap
+var router = require('express').Router() // eslint-disable-line new-cap
   , RelayMessage = require('../models/relayMessage')
   , SparkPost = require('sparkpost')
   , client = new SparkPost()
   , logger = require('../lib/logger');
 
 function getTemplate(raffle) {
-  var deferred = Q.defer()
-    , templateId = 'raffle-' + raffle;
+  var templateId = 'raffle-' + raffle;
 
-  client.templates.find({id: templateId}, function(err) {
-    templateId = err ? 'raffle-default' : templateId;
-    deferred.resolve(templateId);
-  });
-
-  return deferred.promise;
+  return client.templates.get(templateId)
+    .then(() => {
+      return templateId;
+    })
+    .catch(function() {
+      return 'raffle-default';
+    });
 }
 
 function sendConfirmationEmail(data) {
   client.transmissions.send({
-    transmissionBody: {
-      campaignId: 'raffle-' + data.raffle,
-      content: {
-        template_id: data.templateId
-      },
-      substitution_data: data,
-      recipients: [{address: {email: data.entryEmail}}]
-    }
-  }, function(err) {
-    if (err) {
-      return logger.error(err);
-    }
+    campaignId: 'raffle-' + data.raffle,
+    content: {
+      template_id: data.templateId
+    },
+    substitution_data: data,
+    recipients: [{address: {email: data.entryEmail}}]
+  })
+  .then(() => {
     logger.info('Raffle Confirmation sent to: ', data.entryEmail);
+  })
+  .catch(err => {
+    logger.error(err);
   });
 }
 
