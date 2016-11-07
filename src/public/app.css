@@ -109,3 +109,12 @@ body.page-dashboard .entry-info img {
   border: 2px solid #37aadc;
   width: 96px;
 }
+body.page-dashboard .compact {
+  margin-top: -75px;
+}
+body.page-dashboard .compact .entry-info {
+  margin-top: 0;
+}
+body.page-dashboard .compact .entry-data {
+  margin-top: 50px;
+}
