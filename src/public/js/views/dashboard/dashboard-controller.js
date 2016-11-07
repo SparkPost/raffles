@@ -21,20 +21,12 @@ angular.module('rafflesApp.controllers.dashboard', [
   }])
   .controller('DashboardCtrl', ['$stateParams', '$sce', 'Raffle', 'Alerts', 'Socket', function($stateParams, $sce, Raffle, Alerts, Socket) {
     var ctrl = this;
-
-    ctrl.editing = false;
     ctrl.raffle = $stateParams.raffle;
 
     var strStoredRaffle = localStorage.getItem(ctrl.raffle) || '{"title":"Enter to Win"}';
     ctrl.storedRaffle = JSON.parse(strStoredRaffle);
     ctrl.count = 0;
-    ctrl.recentEntries = [
-      /*{ email: 'username@company.com', subject: 'Subject Title for Raffle'},
-      { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle'},
-      { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle'},
-      { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle'},
-      { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}*/
-    ];
+    ctrl.recentEntries = [];
     ctrl.details = '';
 
     ctrl.getCount = function() {
@@ -62,16 +54,22 @@ angular.module('rafflesApp.controllers.dashboard', [
     ctrl.init_dashboard = function() {
       ctrl.getCount();
       ctrl.getRecentEntries();
+      // Test Data
+      /*ctrl.recentEntries = [
+        { email: 'username@company.com', subject: 'Subject Title for Raffle'},
+        { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle'},
+        { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle'},
+        { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle'},
+        { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}
+      ];*/
     };
 
-    ctrl.onEditClick = function() {
-      ctrl.editing = true;
-      setTimeout(function() { $('#txtTitle').focus();}, 0);
-    };
-
-    ctrl.onEditSave = function() {
-      ctrl.editing = false;
-      localStorage.setItem(ctrl.raffle, JSON.stringify(ctrl.storedRaffle));
+    ctrl.onEditSave = function($event) {
+      if ($event.keyCode === 13) {
+        angular.element($event.target).blur();
+      } else if ($event.type === 'blur') {
+        localStorage.setItem(ctrl.raffle, JSON.stringify(ctrl.storedRaffle));
+      }
     };
 
     Socket.on('connect', function() {
@@ -87,5 +85,4 @@ angular.module('rafflesApp.controllers.dashboard', [
     });
 
     ctrl.init_dashboard();
-
   }]);

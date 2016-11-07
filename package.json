@@ -9,7 +9,8 @@
     "test": "npm run lint-server && npm run lint-public",
     "web": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "compile": "lessc src/public/app.less src/public/app.css"
   },
   "keywords": [
     "sparkpost",
@@ -47,6 +48,7 @@
     "chai": "^3.4.1",
     "eslint": "^2.11.1",
     "eslint-config-sparkpost": "^1.0.1",
+    "less": "^2.7.1",
     "nodemon": "^1.9.2"
   }
 }
