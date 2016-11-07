@@ -56,17 +56,18 @@ module.exports.getRaffle = function(from, to, localpart) {
 };
 
 module.exports.pickWinner = function(from, to, localpart) {
-  var where = ['smtp_to = $1 || \'@\' || $2']
-    , args = [localpart, rcptDomain];
+  var args = [localpart, rcptDomain, from, to]
+    , query = '' +
+        'SELECT lower(smtp_from) AS from, min(created) AS received ' +
+          'FROM request_dump.relay_messages ' +
+         'WHERE lower(smtp_to) = lower($1 || \'@\' || $2) ' +
+           'AND ($3 IS NULL OR created >= $3) ' +
+           'AND ($4 IS NULL OR created <  $4) ' +
+         'GROUP BY lower(smtp_from) ' +
+         'ORDER BY random() ' +
+         'LIMIT 1';
 
-  addCreatedClauses(where, args, from, to);
-
-  return db().oneOrNone('SELECT smtp_from AS winner_address, created AS winner_sent_at ' +
-    'FROM request_dump.relay_messages ' +
-    toWhereStr('WHERE', where) +
-    'OFFSET FLOOR(RANDOM()*(SELECT COUNT(*) FROM request_dump.relay_messages WHERE smtp_to = $1 || \'@\' || $2)) ' +
-    'LIMIT 1',
-    args);
+  return db().oneOrNone(query, args);
 };
 
 module.exports.listEntries = function(localpart, options) {

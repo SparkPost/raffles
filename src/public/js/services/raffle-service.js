@@ -39,14 +39,19 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
     Raffle.pickWinner = function(raffle) {
       return $http({
         method: 'GET',
-        url: '/raffles/' + raffle + '/winner'
+        url: '/raffles/' + raffle + '/winner',
+        params: {
+          from: Dates.getFormattedFrom(),
+          to: Dates.getFormattedTo()
+        }
       })
       .then(function(response) {
         if (response.data.errors) {
-          throw new Error(response.errors.join('<br/>'));
+          // This route will only return one error.
+          throw new Error(response.data.errors[0].message);
         }
 
-        return getResults(response).winner_address;
+        return getResults(response).from;
       })
       .catch(errorFormatter);
     };
@@ -58,11 +63,11 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
       };
       options = options || {};
 
-      if(options.sort) {
+      if (options.sort) {
         params.sort = options.sort;
       }
 
-      if(options.limit) {
+      if (options.limit) {
         params.limit = options.limit;
       }
 

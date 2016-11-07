@@ -24,7 +24,7 @@
     "url": "https://github.com/SparkPost/raffles"
   },
   "author": "Ewan Dennis",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.14.2",
     "bower": "^1.7.2",
