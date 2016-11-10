@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <form>
-        <input id="txtTitle" class="inline-edit" type="text" ng-model="ctrl.storedRaffle.title" ng-required ng-blur="ctrl.onEditSave($event)" ng-keypress="ctrl.onEditSave($event)" />
+        <textarea id="txtTitle" class="inline-edit" type="text" ng-model="ctrl.storedRaffle.title" ng-required ng-blur="ctrl.onEditSave($event)" ng-keypress="ctrl.onEditSave($event)" ng-keyup="ctrl.autoExpand($event)" ></textarea>
       </form>
       <date-picker on-date-change="ctrl.init_dashboard()" ng-hide="ctrl.compact"></date-picker>
       <alert></alert>

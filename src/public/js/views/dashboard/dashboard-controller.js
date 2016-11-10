@@ -1,5 +1,7 @@
 'use strict';
-/*globals $:false */
+/*globals angular:false */
+/*globals localStorage:false */
+/*globals document:false */
 
 angular.module('rafflesApp.controllers.dashboard', [
   'ui.router',
@@ -20,17 +22,16 @@ angular.module('rafflesApp.controllers.dashboard', [
       });
   }])
   .controller('DashboardCtrl', ['$stateParams', '$sce', 'Raffle', 'Alerts', 'Socket', '$location', function($stateParams, $sce, Raffle, Alerts, Socket, $location) {
-    var ctrl = this;
+    var ctrl = this
+      , strStoredRaffle;
     ctrl.raffle = $stateParams.raffle;
 
-    var strStoredRaffle = localStorage.getItem(ctrl.raffle) || '{"title":"Enter to Win"}';
+    strStoredRaffle = localStorage.getItem(ctrl.raffle) || '{"title":"Enter to Win"}';
     ctrl.storedRaffle = JSON.parse(strStoredRaffle);
     ctrl.count = 0;
     ctrl.recentEntries = [];
     ctrl.details = '';
-    console.log($location.search().compact);
     ctrl.compact = $location.search().compact || false;
-    console.log(ctrl.compact);
 
     ctrl.getCount = function() {
       Raffle.getCount(ctrl.raffle)
@@ -82,10 +83,17 @@ angular.module('rafflesApp.controllers.dashboard', [
     Socket.on('entry', function(entry) {
       ctrl.count++;
       ctrl.recentEntries.unshift(entry);
-      if(ctrl.recentEntries.length > 5) {
+      if (ctrl.recentEntries.length > 5) {
         ctrl.recentEntries = ctrl.recentEntries.slice(0, 5);
       }
     });
+
+    ctrl.autoExpand = function(e) {
+      var element = typeof e === 'object' ? e.target : document.getElementById(e)
+        , scrollHeight = element.scrollHeight;
+      console.log(element, scrollHeight);
+      element.style.height = scrollHeight + 'px';
+    };
 
     ctrl.init_dashboard();
   }]);

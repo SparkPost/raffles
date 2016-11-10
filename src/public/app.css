@@ -20,8 +20,11 @@ body.page-dashboard .inline-edit {
   border: 0;
   text-align: center;
   margin: 0.5em;
-  line-height: 1.1;
+  line-height: 60px;
   border-bottom: 5px solid transparent;
+  resize: none;
+  overflow: auto;
+  box-sizing: content-box;
 }
 body.page-dashboard h1:focus,
 body.page-dashboard .inline-edit:focus {
