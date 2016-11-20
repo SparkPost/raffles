@@ -20,7 +20,7 @@ function getTemplate(raffle) {
 
 function sendConfirmationEmail(data) {
   client.transmissions.send({
-    campaignId: 'raffle-' + data.raffle,
+    campaign_id: 'raffle-' + data.raffle,
     content: {
       template_id: data.templateId
     },
