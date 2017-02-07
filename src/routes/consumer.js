@@ -53,7 +53,8 @@ module.exports = function(io) {
       .then(function() {
         io.to(data.raffle).emit('entry', {
           email: data.entryEmail,
-          subject: relayEvent.content.subject
+          subject: relayEvent.content.subject,
+          maskedEmail: data.entryEmail.split('@')[0] + '@email.com'
         });
       });
   }

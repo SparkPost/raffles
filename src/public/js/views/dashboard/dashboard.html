@@ -36,7 +36,7 @@
           <table class="table">
             <tbody>
               <tr ng-repeat="entry in ctrl.recentEntries">
-                <td>{{entry.email}}</td>
+                <td>{{ctrl.compact ? entry.maskedEmail : entry.email}}</td>
                 <td>{{entry.subject}}</td>
               </tr>
             </tbody>

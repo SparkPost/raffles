@@ -48,7 +48,8 @@ angular.module('rafflesApp.controllers.dashboard', [
           ctrl.recentEntries = entries.map(function(entry) {
             return {
               email: entry.from,
-              subject: entry.subject
+              subject: entry.subject,
+              maskedEmail: entry.from.split('@') + '@email.com'
             };
           });
         });
@@ -58,12 +59,13 @@ angular.module('rafflesApp.controllers.dashboard', [
       ctrl.getCount();
       ctrl.getRecentEntries();
       // Test Data
-      /*ctrl.recentEntries = [
-        { email: 'username@company.com', subject: 'Subject Title for Raffle'},
-        { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle'},
-        { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle'},
-        { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle'},
-        { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}
+      /*ctrl.count = 5;
+      ctrl.recentEntries = [
+        { email: 'username@company.com', subject: 'Subject Title for Raffle', maskedEmail: 'username@email.com'},
+        { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle', maskedEmail: 'firstname.lastname@email.com'},
+        { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle', maskedEmail: 'flastname@email.com'},
+        { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle', maskedEmail: 'firstlastname@email.com'},
+        { email: 'flastna@business.com', subject: 'Really long subject line for Raffle', maskedEmail: 'flastna@email.com'}
       ];*/
     };
 
