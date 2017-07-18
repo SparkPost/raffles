@@ -7,6 +7,8 @@ var db = require('../lib/db');
  * @param msg
  */
 function sanitize(msg) {
+  msg.friendly_from = msg.friendly_from || msg.msg_from;
+  msg.friendly_from = msg.friendly_from.toLowerCase();
   msg.msg_from = msg.msg_from.toLowerCase();
   msg.rcpt_to = msg.rcpt_to.toLowerCase();
 }
@@ -17,7 +19,7 @@ module.exports.create = function(msg) {
   return db().none('INSERT INTO request_dump.relay_messages (webhook_id, smtp_from, smtp_to, subject, rfc822, is_base64) ' +
     'VALUES ($1, $2, $3, $4, $5, $6)', [
       msg.webhook_id,
-      msg.msg_from,
+      msg.friendly_from,
       msg.rcpt_to,
       msg.content.subject,
       msg.content.email_rfc822,
@@ -36,7 +38,7 @@ module.exports.createMany = function(batch) {
       return txdb.none('INSERT INTO request_dump.relay_messages (webhook_id, smtp_from, smtp_to, subject, rfc822, is_base64) ' +
         'VALUES ($1, $2, $3, $4, $5, $6)', [
           msg.webhook_id,
-          msg.msg_from,
+          msg.friendly_from,
           msg.rcpt_to,
           msg.content.subject,
           msg.content.email_rfc822,

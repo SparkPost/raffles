@@ -39,7 +39,7 @@ module.exports = function(io) {
 
   function processRelayMessage(relayEvent) {
     var data = {
-      entryEmail: relayEvent.msg_from,
+      entryEmail: relayEvent.friendly_from || relayEvent.msg_from,
       raffle: relayEvent.rcpt_to.split('@')[0]
     };
 
