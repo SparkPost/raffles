@@ -4,3 +4,4 @@ npm-debug.log
 .env
 config/local.json
 .node-version
+.idea/

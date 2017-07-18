@@ -49,7 +49,7 @@ angular.module('rafflesApp.controllers.dashboard', [
             return {
               email: entry.from,
               subject: entry.subject,
-              maskedEmail: entry.from.split('@') + '@email.com'
+              maskedEmail: entry.from.split('@')[0] + '@email.com'
             };
           });
         });
