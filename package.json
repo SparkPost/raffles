@@ -1,0 +1,33 @@
+{
+  "name": "sparkpost-raffles",
+  "version": "2.0.0",
+  "description": "An email driven raffle application using SparkPost",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SparkPost/raffles.git"
+  },
+  "keywords": [
+    "sparkpost",
+    "email",
+    "mail",
+    "webhook",
+    "raffle"
+  ],
+  "author": "SparkPost",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/SparkPost/raffles/issues"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
