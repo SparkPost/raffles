@@ -436,8 +436,10 @@ small {
   color: #6e6e73; }
 
 .header {
-  background: url("./sparkpost-lab-bg.png") #fa6423 center center;
-  background-size: 60%;
+  background: url("./background-pattern-white-05-144.png") #414146 center center;
+  background-size: 600px 600px;
+  background-position: bottom;
+  background-repeat: repeat;
   padding: 2.22222rem 0 2.77778rem 0;
   box-shadow: 0px 5px 9px rgba(65, 65, 70, 0.14); }
   .header .logo__sparkpost {

@@ -1,0 +1,54 @@
+/*
+  Transpiled css in scss format - .css also available
+  Include this only once to include React component styles
+*/
+@import '@sparkpost/matchbox/styles.scss';
+
+/*
+  Config does not output and css, only holds functions and mixins.
+  Use this for your own component styles
+*/
+@import '@sparkpost/matchbox/src/styles/config.scss';
+
+html {
+  background: grayscale(9);
+  @media screen and (min-width: break(xl)) {
+    font-size: 20px;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+.text--center {
+  text-align: center;
+}
+
+.text--mustard {
+  color: color(mustard);
+}
+
+.text--green {
+  color: color(green);
+}
+
+.container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: break(xl);
+
+  &--content {
+    padding: rem(30) 0;
+
+    min-height: 0;
+    @media screen and (min-width: break(md)) {
+      padding: rem(60) 0;
+      min-height: 70vh;
+    }
+  }
+}
+
+.clearfix {
+  @include clearfix;
+}

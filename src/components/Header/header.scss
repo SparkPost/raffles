@@ -2,8 +2,10 @@
 @import '@sparkpost/matchbox/src/styles/global.scss';
 
 .header {
-  background: url('./sparkpost-lab-bg.png') color(orange) center center;
-  background-size: 60%;
+  background: url('./background-pattern-white-05-144.png') color(gray, 1) center center;
+  background-size: 600px 600px;
+  background-position: bottom;
+  background-repeat: repeat;
   padding: rem(40) 0 rem(50) 0;
   box-shadow: shadow(deep);
 
