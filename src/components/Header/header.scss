@@ -1,0 +1,25 @@
+@import '@sparkpost/matchbox/src/styles/config.scss';
+@import '@sparkpost/matchbox/src/styles/global.scss';
+
+.header {
+  background: url('./sparkpost-lab-bg.png') color(orange) center center;
+  background-size: 60%;
+  padding: rem(40) 0 rem(50) 0;
+  box-shadow: shadow(deep);
+
+  .logo {
+    &__sparkpost {
+      width: 200px;
+    }
+
+    &__lab {
+      margin-top: rem(10);
+      font-size: rem(60);
+      letter-spacing: 2px;
+      font-weight: bold;
+      font-family: font-family();
+      text-transform: uppercase;
+      color: grayscale(white);
+    }
+  }
+}
