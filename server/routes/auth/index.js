@@ -1,10 +1,13 @@
 const router = require('express').Router()
+const passport = require('passport')
+const BearerStrategy = require('passport-http-bearer').Strategy
 const googleAuthRouter = require('./providers/google')
 
-router.use('/google', googleAuthRouter)
+// Allows us to use `passport.authenticate('bearer', { session: false })` on API calls
+passport.use(new BearerStrategy((token, done) => {
+  // TODO token check
+}))
 
-router.get('/logout', (req, res) => {
-  res.send('Log out')
-})
+router.use('/google', googleAuthRouter)
 
 module.exports = router
