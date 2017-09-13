@@ -245,7 +245,7 @@ small {
   padding: .5rem 1rem;
   color: #6e6e73; }
 
-.Matchbox-ActionList__Action:hover, a.Matchbox-ActionList__Action:hover {
+.Matchbox-ActionList--highlighted, .Matchbox-ActionList__Action:hover, a.Matchbox-ActionList--highlighted, a.Matchbox-ActionList__Action:hover {
   background: #37aadc;
   color: #fff; }
 
@@ -545,13 +545,16 @@ small {
   padding-top: .33333rem; }
 
 .Matchbox-Error__Icon {
-  fill: #d93845; }
+  float: left;
+  margin-right: .27778rem;
+  fill: #d93845;
+  line-height: .83333rem; }
 
 .Matchbox-Error__Message {
   display: inline-block;
-  padding-left: .33333rem;
-  vertical-align: middle;
+  vertical-align: top;
   font-size: .72222rem;
+  line-height: .83333rem;
   font-weight: 500;
   color: #d93845; }
 
@@ -772,7 +775,7 @@ small {
 .Matchbox-Datepicker--selected {
   background: rgba(55, 170, 220, 0.3);
   border: 1px solid rgba(55, 170, 220, 0.4);
-  z-index: 1;
+  z-index: 100;
   color: #414146;
   font-weight: 600; }
 
@@ -1842,7 +1845,7 @@ small {
 
 .Matchbox-Modal {
   position: fixed;
-  z-index: 1;
+  z-index: 400;
   top: 0;
   left: 0;
   width: 100vw;
@@ -1862,11 +1865,11 @@ small {
 
 .Matchbox-Modal--open .Matchbox-Modal__Content {
   -webkit-transform: translate(0);
-  transform: translate(0);
-  margin: 4.44444rem 0; }
+  transform: translate(0); }
 
 .Matchbox-Modal__Content {
   max-width: 960px;
+  margin: 4.44444rem 0;
   -webkit-transform: translateY(9px);
   transform: translateY(9px);
   -webkit-transition: .1s ease-out;
@@ -2418,6 +2421,26 @@ small {
   line-height: .83333rem;
   color: #828287; }
 
+.Matchbox-TextField__Prefix, .Matchbox-TextField__Suffix {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .5; }
+
+.Matchbox-TextField__Prefix {
+  left: .66667rem;
+  padding: .22222rem 0; }
+
+.Matchbox-TextField__Suffix {
+  right: .66667rem;
+  padding: .22222rem 0; }
+
+.Matchbox-TextField__InputWrapper {
+  position: relative;
+  z-index: 1; }
+
 .Matchbox-Toggle {
   display: inline-block;
   position: relative;
@@ -2541,6 +2564,14 @@ small {
   top: auto;
   bottom: 100%;
   margin: 0 0 10px; }
+
+.Matchbox-Tooltip--right .Matchbox-Tooltip {
+  left: auto;
+  right: 0; }
+
+.Matchbox-Tooltip--right .Matchbox-Tooltip__Tip {
+  left: auto;
+  right: 1.16667rem; }
 
 .Matchbox-Tooltip__Tip {
   top: -.77778rem;
