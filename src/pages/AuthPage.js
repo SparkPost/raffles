@@ -12,7 +12,8 @@ class AuthPage extends Component {
   componentDidMount () {
     const { match } = this.props
     if (auth.loggedIn) {
-      this.setState({ redirectToReferrer: true })
+      console.log('Already logged in!', localStorage.getItem('token'))
+      // this.setState({ redirectToReferrer: true })
     }
     if (match.params.token) {
       console.log('got token')
