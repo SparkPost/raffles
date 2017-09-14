@@ -71,11 +71,11 @@ router.get(
   '/callback',
   passport.authenticate('google', {
     session: false,
-    failureRedirect: `${config.api_base}/auth/error/Failed to Authenticate`
+    failureRedirect: `${config.ui_base}/auth/error/Failed to Authenticate`
   }),
   (req, res) => {
     res.redirect(
-      `${config.api_base}/auth/${req.user.token}`
+      `${config.ui_base}/auth/${req.user.token}`
     )
   }
 )
