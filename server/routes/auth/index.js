@@ -2,17 +2,12 @@ const router = require('express').Router()
 const passport = require('passport')
 const BearerStrategy = require('passport-http-bearer').Strategy
 const googleAuthRouter = require('./providers/google')
-const jwt = require('jsonwebtoken')
+const jwtHelper = require('../../utils/jwtHelper')
 const User = require('../../models/user')
-
-// TODO temporary
-let config = {
-  jwt_secret: 'purplemonkeydishwasher'
-}
 
 // Allows us to use `passport.authenticate('bearer', { session: false })` on API calls
 passport.use(new BearerStrategy((token, done) => {
-  const payload = jwt.verify(token, config.jwt_secret)
+  const payload = jwtHelper.verifyToken(token)
   console.log(payload)
   User.findById(payload.user_id)
     .then(user => {

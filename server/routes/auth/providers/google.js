@@ -4,19 +4,11 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const User = require('../../../models/user')
 const emailDomain = process.env.AUTH_EMAIL_DOMAIN || '*'
 const _ = require('lodash')
-const jwt = require('jsonwebtoken')
+const jwtHelper = require('../../../utils/jwtHelper')
 
 // TODO temporary
 let config = {
-  api_base: 'http://localhost:3001',
-  jwt_secret: 'purplemonkeydishwasher'
-}
-
-const createToken = id => {
-  const payload = {
-    user_id: id
-  }
-  return jwt.sign(payload, config.jwt_secret)
+  api_base: 'http://localhost:3001'
 }
 
 passport.use(
@@ -36,7 +28,7 @@ passport.use(
       // TODO create token using jwt
       User.findByGoogleId(profile.id).then(user => {
         if (user) {
-          user.token = createToken(user.id)
+          user.token = jwtHelper.createToken(user.id)
           done(null, user)
         } else {
           return User.query()
@@ -47,7 +39,7 @@ passport.use(
               last_name: _.get(profile, 'name.familyName')
             })
             .then(user => {
-              user.token = createToken(user.id)
+              user.token = jwtHelper.createToken(user.id)
               done(null, user)
             })
             .catch(err => {
