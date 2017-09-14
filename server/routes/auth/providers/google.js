@@ -1,12 +1,22 @@
 const router = require('express').Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+const User = require('../../../models/user')
 const emailDomain = process.env.AUTH_EMAIL_DOMAIN || '*'
 const _ = require('lodash')
+const jwt = require('jsonwebtoken')
 
 // TODO temporary
 let config = {
-  api_base: 'http://localhost:3001'
+  api_base: 'http://localhost:3001',
+  jwt_secret: 'purplemonkeydishwasher'
+}
+
+const createToken = id => {
+  const payload = {
+    user_id: id
+  }
+  return jwt.sign(payload, config.jwt_secret)
 }
 
 passport.use(
@@ -17,7 +27,6 @@ passport.use(
       callbackURL: `${config.api_base}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile)
       let email = _.get(profile, 'emails.0.value') || ''
 
       if (_.last(email.split('@')) !== emailDomain && emailDomain !== '*') {
@@ -25,7 +34,27 @@ passport.use(
       }
 
       // TODO create token using jwt
-      done(null, {profile: profile})
+      User.findByGoogleId(profile.id).then(user => {
+        if (user) {
+          user.token = createToken(user.id)
+          done(null, user)
+        } else {
+          return User.query()
+            .insert({
+              google_id: profile.id,
+              email: email,
+              first_name: _.get(profile, 'name.givenName'),
+              last_name: _.get(profile, 'name.familyName')
+            })
+            .then(user => {
+              user.token = createToken(user.id)
+              done(null, user)
+            })
+            .catch(err => {
+              done(err)
+            })
+        }
+      })
     }
   )
 )
@@ -48,7 +77,7 @@ router.get(
   }),
   (req, res) => {
     // TODO Should go to UI
-    res.redirect(`${config.api_base}/auth/success?id=${req.user.profile.id}`)
+    res.redirect(`${config.api_base}/api/success?access_token=${req.user.token}`)
   }
 )
 

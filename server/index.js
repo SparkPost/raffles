@@ -5,6 +5,11 @@ const app = express()
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 const webhooksRouter = require('./routes/webhooks')
+const knex = require('./utils/knex')
+
+if (process.env.NODE_ENV === 'production') {
+  knex.migrate.latest()
+}
 
 app.set('port', process.env.PORT || 3001)
 
