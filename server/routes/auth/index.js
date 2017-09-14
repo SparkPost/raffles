@@ -30,10 +30,4 @@ router.get('/failed', (req, res) => {
   res.end()
 })
 
-router.get('/success', (req, res) => {
-  console.log('Auth suceeded')
-  res.write('Success!')
-  res.end()
-})
-
 module.exports = router
