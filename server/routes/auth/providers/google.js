@@ -8,7 +8,8 @@ const jwtHelper = require('../../../utils/jwtHelper')
 
 // TODO temporary
 let config = {
-  api_base: 'http://localhost:3001'
+  api_base: 'http://localhost:3001',
+  ui_base: 'http://localhost:3000'
 }
 
 passport.use(
@@ -70,12 +71,11 @@ router.get(
   '/callback',
   passport.authenticate('google', {
     session: false,
-    failureRedirect: `${config.api_base}/auth/failed` // TODO Should go to UI Login & Display Error
+    failureRedirect: `${config.api_base}/auth/error/Failed to Authenticate`
   }),
   (req, res) => {
-    // TODO Should go to UI
     res.redirect(
-      `${config.api_base}/api/success?access_token=${req.user.token}`
+      `${config.api_base}/auth/${req.user.token}`
     )
   }
 )

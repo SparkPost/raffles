@@ -20,7 +20,7 @@
     "url": "https://github.com/SparkPost/raffles/issues"
   },
   "dependencies": {
-    "@sparkpost/matchbox": "^1.4.13",
+    "@sparkpost/matchbox": "^1.4.14",
     "body-parser": "^1.18.1",
     "classnames": "^2.2.5",
     "express": "^4.15.4",

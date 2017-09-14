@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  //Link,
+  // Link,
   Redirect,
   Switch,
   withRouter
@@ -29,22 +29,24 @@ const AuthButton = withRouter(({ history }) => (
 ))
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <Router>
-        <div className="App">
+        <div className='App'>
           <Header />
-          <div className="container container--content">
+          <div className='container container--content'>
             <Switch>
               <Route exact path='/' render={() => <Redirect to='/dashboard' />} />
-              <Route path='/auth' component={AuthPage} />
+              <Route exact path='/auth' component={AuthPage} />
+              <Route path='/auth/error/:errMsg' component={AuthPage} />
+              <Route path='/auth/:token' component={AuthPage} />
               <ProtectedRoute path='/dashboard' component={DashboardPage} />
             </Switch>
             <AuthButton />
           </div>
         </div>
       </Router>
-    );
+    )
   }
 }
 
