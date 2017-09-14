@@ -28,15 +28,20 @@ passport.use(
       // TODO create token using jwt
       User.findByGoogleId(profile.id).then(user => {
         if (user) {
-          user.token = jwtHelper.createToken(user.id)
-          done(null, user)
+          User.query()
+            .updateAndFetchById(user.id, { last_signin: User.knex().fn.now() })
+            .then(user => {
+              user.token = jwtHelper.createToken(user.id)
+              done(null, user)
+            })
         } else {
           return User.query()
             .insert({
               google_id: profile.id,
               email: email,
               first_name: _.get(profile, 'name.givenName'),
-              last_name: _.get(profile, 'name.familyName')
+              last_name: _.get(profile, 'name.familyName'),
+              last_signin: User.knex().fn.now()
             })
             .then(user => {
               user.token = jwtHelper.createToken(user.id)
@@ -69,7 +74,9 @@ router.get(
   }),
   (req, res) => {
     // TODO Should go to UI
-    res.redirect(`${config.api_base}/api/success?access_token=${req.user.token}`)
+    res.redirect(
+      `${config.api_base}/api/success?access_token=${req.user.token}`
+    )
   }
 )
 

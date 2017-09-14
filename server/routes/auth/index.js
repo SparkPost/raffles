@@ -8,7 +8,6 @@ const User = require('../../models/user')
 // Allows us to use `passport.authenticate('bearer', { session: false })` on API calls
 passport.use(new BearerStrategy((token, done) => {
   const payload = jwtHelper.verifyToken(token)
-  console.log(payload)
   User.findById(payload.user_id)
     .then(user => {
       if (!user) {
