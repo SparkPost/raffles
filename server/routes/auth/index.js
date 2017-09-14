@@ -10,4 +10,16 @@ passport.use(new BearerStrategy((token, done) => {
 
 router.use('/google', googleAuthRouter)
 
+router.get('/failed', (req, res) => {
+  console.log('Auth failed')
+  res.write('whoops!')
+  res.end()
+})
+
+router.get('/success', (req, res) => {
+  console.log('Auth suceeded')
+  res.write('Success!')
+  res.end()
+})
+
 module.exports = router

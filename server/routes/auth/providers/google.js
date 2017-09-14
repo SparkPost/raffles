@@ -6,17 +6,18 @@ const _ = require('lodash')
 
 // TODO temporary
 let config = {
-  api_base: 'http://localhost:3000'
+  api_base: 'http://localhost:3001'
 }
 
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID, // TODO
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET, // TODO
-      callbackURL: `${config.api_base}/auth/callback`
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: `${config.api_base}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log(profile)
       let email = _.get(profile, 'emails.0.value') || ''
 
       if (_.last(email.split('@')) !== emailDomain && emailDomain !== '*') {
@@ -24,23 +25,31 @@ passport.use(
       }
 
       // TODO create token using jwt
+      done(null, {profile: profile})
     }
   )
 )
 
-router.get('/', (req, res) => {
+router.get(
+  '/',
   passport.authenticate('google', {
+    session: false,
     scope: ['profile', 'email'],
     access_type: 'online',
     hd: process.env.AUTH_EMAIL_DOMAIN
   })
-})
+)
 
-router.get('/callback', (req, res) => {
+router.get(
+  '/callback',
   passport.authenticate('google', {
-    successRedirect: '/admin', // TODO Should go to UI
-    failureRedirect: '/' // TODO Should go to UI Login & Display Error
-  })
-})
+    session: false,
+    failureRedirect: `${config.api_base}/auth/failed` // TODO Should go to UI Login & Display Error
+  }),
+  (req, res) => {
+    // TODO Should go to UI
+    res.redirect(`${config.api_base}/auth/success?id=${req.user.profile.id}`)
+  }
+)
 
 module.exports = router
