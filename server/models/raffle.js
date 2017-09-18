@@ -1,4 +1,4 @@
-const { raw } = require('objection');
+const { raw } = require('objection')
 const Model = require('../utils/model')
 const Entry = require('./entry')
 
@@ -19,28 +19,57 @@ class Raffle extends Model {
       .first()
   }
 
-  update({ by, query }) {
-    return this.$query().update({
-      updated_by: by,
-      updated_at: Raffle.knex().fn.now(),
-    }).update(query || {})
+  static findByStatus (status) {
+    status = status.toLowerCase()
+    if (status === 'active') {
+      return this.query()
+        .whereNotNull('started_at')
+        .where('started_at', '<', Raffle.knex().fn.now())
+        .where(function () {
+          this.whereNull('ended_at').orWhere(
+            'ended_at',
+            '>',
+            Raffle.knex().fn.now()
+          )
+        })
+    } else if (status === 'inactive') {
+      return this.query()
+        .whereNull('started_at')
+        .where('started_at', '>', Raffle.knex().fn.now())
+        .where(function () {
+          this.whereNotNull('ended_at').orWhere(
+            'ended_at',
+            '>',
+            Raffle.knex().fn.now()
+          )
+        })
+    }
   }
 
-  start({ by, at }) {
+  update ({ by, query }) {
+    return this.$query()
+      .update({
+        updated_by: by,
+        updated_at: Raffle.knex().fn.now()
+      })
+      .update(query || {})
+  }
+
+  start ({ by, at }) {
     return this.$query().update({
       started_by: by,
-      started_at: at ||  Raffle.knex().fn.now()
+      started_at: at || Raffle.knex().fn.now()
     })
   }
 
-  end({ by, at }) {
+  end ({ by, at }) {
     return this.$query().update({
       ended_by: by,
-      ended_at: at ||  Raffle.knex().fn.now()
+      ended_at: at || Raffle.knex().fn.now()
     })
   }
 
-  pickWinner() {
+  pickWinner () {
     this.$relatedQuery('entries')
       .where({ is_winner: false })
       .orderBy(raw('random'))
@@ -48,8 +77,8 @@ class Raffle extends Model {
       .then(winner => {
         return winner.$query.update({
           is_winner: true
-        } })
-      });
+        })
+      })
   }
 }
 
