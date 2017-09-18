@@ -10,7 +10,7 @@ router.get('/raffles/:id', (req, res) => {
   let results = _.pick(req.raffle, ['id', 'name'])
   results.email = `${req.raffle.localpart}@${process.env.RCPT_DOMAIN}`
   results.count = req.raffle.entries.length
-  res.json({ results })
+  res.sendResults(results)
 })
 
 // QR Code Generator &size={pixel}
