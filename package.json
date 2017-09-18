@@ -21,12 +21,12 @@
   },
   "dependencies": {
     "@sparkpost/matchbox": "^1.4.14",
+    "axios": "^0.16.2",
     "body-parser": "^1.18.1",
     "classnames": "^2.2.5",
     "express": "^4.15.4",
     "jsonwebtoken": "^8.0.1",
     "knex": "^0.13.0",
-    "lodash": "^4.17.4",
     "objection": "^0.8.9",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
@@ -42,14 +42,16 @@
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "build-js": "react-scripts build",
-    "start-server": "node ./server/index.js",
+    "start-server": "nodemon ./server/index.js",
     "start": "npm-run-all -p watch-css start-js start-server",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "migrate": "knex migrate:latest --knexfile=server/knexfile.js"
   },
   "devDependencies": {
     "node-sass-chokidar": "0.0.3",
+    "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1"
   }
 }
