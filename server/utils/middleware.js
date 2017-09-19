@@ -24,14 +24,17 @@ const getRaffle = (req, res, next) => {
   const raffleId = req.params.id
   Raffle.findById(raffleId)
     .then(raffle => {
-      if (raffle) {
-        req.raffle = raffle
-        next()
+      if (!raffle) {
+        return res.sendStatus(404)
       }
-      res.sendStatus(404)
+      req.raffle = raffle
+      next()
     })
-    .catch((err) => {
-      res.sendError(err)
+    .catch(err => {
+      res.json({
+        code: err.code,
+        message: err.message
+      })
     })
 }
 
