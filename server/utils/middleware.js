@@ -10,11 +10,11 @@ const responseHelpers = (req, res, next) => {
       }
     }
 
-    this.json({ error })
+    res.json({ error })
   }
 
   res.sendResults = (results) => {
-    this.json({ results })
+    res.json({ results })
   }
 
   next()
@@ -24,11 +24,14 @@ const getRaffle = (req, res, next) => {
   const raffleId = req.params.id
   Raffle.findById(raffleId)
     .then(raffle => {
-      req.raffle = raffle
-      next()
-    })
-    .catch(() => {
+      if (raffle) {
+        req.raffle = raffle
+        next()
+      }
       res.sendStatus(404)
+    })
+    .catch((err) => {
+      res.sendError(err)
     })
 }
 

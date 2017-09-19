@@ -3,18 +3,16 @@ const { getRaffle } = require('../../utils/middleware')
 const _ = require('lodash')
 const qr = require('node-qr-image')
 
-router.use(getRaffle)
-
 // Single Raffle Public View (entry count)
-router.get('/raffles/:id', (req, res) => {
+router.get('/raffles/:id', getRaffle, (req, res) => {
   let results = _.pick(req.raffle, ['id', 'name'])
   results.email = `${req.raffle.localpart}@${process.env.RCPT_DOMAIN}`
-  results.count = req.raffle.entries.length
+  results.count = req.raffle.entries ? req.raffle.entries.length : 0
   res.sendResults(results)
 })
 
 // QR Code Generator &size={pixel}
-router.get('/raffles/:id/qr-code.png', (req, res) => {
+router.get('/raffles/:id/qr-code.png', getRaffle, (req, res) => {
   const link = `mailto:${req.raffle.localpart}@${process.env.RCPT_DOMAIN}`
   const size = parseInt(req.query.size || 100)
 

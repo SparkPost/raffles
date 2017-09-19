@@ -19,6 +19,7 @@ class Raffle extends Model {
       .first()
   }
 
+  // TODO
   static findByStatus (status) {
     status = status.toLowerCase()
     if (status === 'active') {
@@ -47,12 +48,11 @@ class Raffle extends Model {
   }
 
   update ({ by, query }) {
+    query = query || {}
+    query.updated_by = by
+    query.updated_at = Raffle.knex().fn.now()
     return this.$query()
-      .update({
-        updated_by: by,
-        updated_at: Raffle.knex().fn.now()
-      })
-      .update(query || {})
+      .updateAndFetchById(this.id, query)
   }
 
   start ({ by, at }) {
@@ -69,6 +69,7 @@ class Raffle extends Model {
     })
   }
 
+  // TODO
   pickWinner () {
     this.$relatedQuery('entries')
       .where({ is_winner: false })
@@ -87,8 +88,8 @@ Raffle.relationMappings = {
     relation: Model.HasManyRelation,
     modelClass: Entry,
     join: {
-      from: 'raffle.id',
-      to: 'entry.raffle_id'
+      from: 'raffles.id',
+      to: 'entries.raffle_id'
     }
   }
 }

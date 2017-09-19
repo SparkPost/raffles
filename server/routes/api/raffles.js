@@ -1,10 +1,15 @@
 const router = require('express').Router()
+const passport = require('passport')
 const { getRaffle } = require('../../utils/middleware')
 const Raffle = require('../../models/Raffle')
+
+router.use(passport.authenticate('bearer', { session: false }))
 
 // ?status={active|inactive}
 router.get('/', (req, res) => {
   const { status } = req.query
+
+  console.log(req.user)
   const promise = status ? Raffle.findByStatus(status) : Raffle.query()
 
   promise
@@ -23,7 +28,7 @@ router.get('/:id', getRaffle, (req, res) => {
 
 // Create
 router.post('/', (req, res) => {
-  const payload = {...req.body}
+  const payload = req.body
   payload.created_by = req.user.id
 
   if (payload.started_at) {
@@ -48,7 +53,7 @@ router.post('/', (req, res) => {
 // Update
 router.put('/:id', getRaffle, (req, res) => {
   let { raffle } = req
-  const payload = {...req.body}
+  const payload = req.body
 
   if (payload.started_at) {
     payload.started_by = req.user.id
@@ -73,8 +78,8 @@ router.put('/:id/start', getRaffle, (req, res) => {
   let { raffle } = req
   raffle
     .start({by: req.user.id})
-    .then(raffle => {
-      return res.sendResults(raffle)
+    .then(() => {
+      return res.sendStatus(204)
     })
     .catch(err => {
       return res.sendError(err)
@@ -86,8 +91,8 @@ router.put('/:id/end', getRaffle, (req, res) => {
   let { raffle } = req
   raffle
     .end({by: req.user.id})
-    .then(raffle => {
-      return res.sendResults(raffle)
+    .then(() => {
+      return res.sendStatus(204)
     })
     .catch(err => {
       return res.sendError(err)
@@ -111,6 +116,7 @@ router.get('/:id/draw', getRaffle, (req, res) => {
 router.delete('/:id', getRaffle, (req, res) => {
   let { raffle } = req
   raffle
+    .$query()
     .delete()
     .then(() => {
       return res.sendStatus(204)
