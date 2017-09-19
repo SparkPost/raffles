@@ -8,8 +8,6 @@ router.use(passport.authenticate('bearer', { session: false }))
 // ?status={active|inactive}
 router.get('/', (req, res) => {
   const { status } = req.query
-
-  console.log(req.user)
   const promise = status ? Raffle.findByStatus(status) : Raffle.query()
 
   promise
