@@ -64,7 +64,8 @@ const sendExceptionEmail = ({type, email, raffle, message}) => {
 
 const processRelayMessage = (relayEvent) => {
   const localpart = relayEvent.rcpt_to.split('@')[0]
-  const email = relayEvent.friendly_from || relayEvent.msg_from
+  const reply_to = relayEvent.msg_from
+  const email = relayEvent.friendly_from || reply_to
 
   // Prevent Confirmation Loops
   if (localpart === 'confirmation') {
@@ -76,7 +77,7 @@ const processRelayMessage = (relayEvent) => {
     .then(raffle => {
       return raffle.addEmailEntry({
         email,
-        reply_to: email,
+        reply_to,
         name: relayEvent.content.subject,
         data: {
           email_rfc822: relayEvent.content.email_rfc822
