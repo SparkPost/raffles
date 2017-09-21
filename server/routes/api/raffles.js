@@ -30,10 +30,12 @@ router.post('/', (req, res) => {
   payload.created_by = req.user.id
 
   if (payload.started_at) {
+    payload.started_at = new Date(payload.started_at)
     payload.started_by = req.user.id
   }
 
   if (payload.ended_at) {
+    payload.ended_at = new Date(payload.ended_at)
     payload.ended_by = req.user.id
   }
 
@@ -54,15 +56,17 @@ router.put('/:id', getRaffle, (req, res) => {
   const payload = req.body
 
   if (payload.started_at) {
+    payload.started_at = new Date(payload.started_at)
     payload.started_by = req.user.id
   }
 
   if (payload.ended_at) {
+    payload.ended_at = new Date(payload.ended_at)
     payload.ended_by = req.user.id
   }
 
   raffle
-    .update({by: req.user.id, payload})
+    .update({by: req.user.id, query: payload})
     .then(raffle => {
       return res.sendResults(raffle)
     })

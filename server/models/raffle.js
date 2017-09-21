@@ -1,6 +1,6 @@
-const { raw } = require('objection')
 const Model = require('../utils/model')
-const Entry = require('./entry')
+// const Entry = require('./entry')
+const path = require('path')
 
 class Raffle extends Model {
   static get tableName () {
@@ -11,15 +11,30 @@ class Raffle extends Model {
     return this.query()
       .where({ id })
       .first()
+      .eager('entries')
   }
 
   static findByLocalpart (localpart) {
     return this.query()
       .where({ localpart })
+      .whereNotNull('started_at')
+      .where('started_at', '<', Raffle.knex().fn.now())
+      .where(function () {
+        this.whereNull('ended_at').orWhere(
+          'ended_at',
+          '>',
+          Raffle.knex().fn.now()
+        )
+      })
       .first()
+      .then(raffle => {
+        if (!raffle) {
+          throw new Error('RAFFLE_NOT_FOUND')
+        }
+        return raffle
+      })
   }
 
-  // TODO
   static findByStatus (status) {
     status = status.toLowerCase()
     if (status === 'active') {
@@ -35,15 +50,9 @@ class Raffle extends Model {
         })
     } else if (status === 'inactive') {
       return this.query()
-        .whereNull('started_at')
-        .where('started_at', '>', Raffle.knex().fn.now())
-        .where(function () {
-          this.whereNotNull('ended_at').orWhere(
-            'ended_at',
-            '>',
-            Raffle.knex().fn.now()
-          )
-        })
+        .where('ended_at', '<', Raffle.knex().fn.now())
+        .orWhereNull('started_at')
+        .orWhere('started_at', '>', Raffle.knex().fn.now())
     }
   }
 
@@ -51,8 +60,7 @@ class Raffle extends Model {
     query = query || {}
     query.updated_by = by
     query.updated_at = Raffle.knex().fn.now()
-    return this.$query()
-      .updateAndFetchById(this.id, query)
+    return this.$query().updateAndFetchById(this.id, query)
   }
 
   start ({ by, at }) {
@@ -69,14 +77,33 @@ class Raffle extends Model {
     })
   }
 
-  // TODO
+  addEmailEntry ({ email, reply_to, name, data }) {
+    return this.$relatedQuery('entries')
+      .where({ email })
+      .then(entries => {
+        if (entries.length) {
+          // Dup Entry
+          throw new Error('DUPLICATE_ENTRY')
+        }
+        return this.$relatedQuery('entries').insert({
+          email,
+          reply_to,
+          name,
+          data,
+          raffle_id: this.id,
+          source: 'email'
+        })
+        .eager('raffle')
+      })
+  }
+
   pickWinner () {
-    this.$relatedQuery('entries')
+    return this.$relatedQuery('entries')
       .where({ is_winner: false })
-      .orderBy(raw('random'))
+      .orderByRaw('RANDOM()')
       .first()
       .then(winner => {
-        return winner.$query.update({
+        return winner.update({
           is_winner: true
         })
       })
@@ -86,7 +113,7 @@ class Raffle extends Model {
 Raffle.relationMappings = {
   entries: {
     relation: Model.HasManyRelation,
-    modelClass: Entry,
+    modelClass: path.join(__dirname, '/entry'),
     join: {
       from: 'raffles.id',
       to: 'entries.raffle_id'
