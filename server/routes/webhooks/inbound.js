@@ -64,7 +64,8 @@ const sendExceptionEmail = ({type, email, raffle, message}) => {
 
 const processRelayMessage = (relayEvent) => {
   const localpart = relayEvent.rcpt_to.split('@')[0]
-  const email = relayEvent.friendly_from || relayEvent.msg_from
+  const replyTo = relayEvent.msg_from
+  const email = relayEvent.friendly_from || replyTo
 
   // Prevent Confirmation Loops
   if (localpart === 'confirmation') {
@@ -76,7 +77,7 @@ const processRelayMessage = (relayEvent) => {
     .then(raffle => {
       return raffle.addEmailEntry({
         email,
-        reply_to: email,
+        reply_to: replyTo,
         name: relayEvent.content.subject,
         data: {
           email_rfc822: relayEvent.content.email_rfc822
@@ -90,7 +91,7 @@ const processRelayMessage = (relayEvent) => {
         logger.warn(`Active Raffle for localpart ${localpart} not found.`)
         sendExceptionEmail({
           type: err.message,
-          email,
+          email: replyTo,
           raffle,
           message: `An active raffle for ${raffle} wasn't found.`
         })
@@ -98,7 +99,7 @@ const processRelayMessage = (relayEvent) => {
         logger.warn(`Duplicate entry attempt for ${email} in ${localpart} raffle.`)
         sendExceptionEmail({
           type: err.message,
-          email,
+          email: replyTo,
           raffle,
           message: `It looks like you've alredy entered by emailing: ${raffle}.`
         })
