@@ -11,7 +11,7 @@
 @import '@sparkpost/matchbox/src/styles/config.scss';
 
 html {
-  background: grayscale(9);
+  background: color(gray, 9);
   @media screen and (min-width: break(xl)) {
     font-size: 20px;
   }
@@ -19,6 +19,7 @@ html {
 
 a {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .text--center {
@@ -51,4 +52,8 @@ a {
 
 .clearfix {
   @include clearfix;
+}
+
+.float--right {
+  float: right;
 }

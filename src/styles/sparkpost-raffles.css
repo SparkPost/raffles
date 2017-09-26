@@ -173,7 +173,7 @@ body {
   -webkit-box-sizing: inherit;
   box-sizing: inherit; }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, ol, p, ul {
   margin: 0;
   margin-bottom: 1rem;
   font-size: 1em;
@@ -225,6 +225,9 @@ small {
   font-size: .72222rem;
   color: #6e6e73; }
 
+ol, ul {
+  padding-left: 1.5rem; }
+
 .Matchbox-ActionList {
   padding-top: .33333rem;
   overflow: scroll;
@@ -274,10 +277,10 @@ small {
   border-radius: 2px 2px 0 0; }
 
 .Matchbox-Banner--success {
-  background: #f8fbf3; }
+  background: #e7f4d7; }
 
 .Matchbox-Banner--success:before {
-  background: #9bcd5a; }
+  background: #8cca3a; }
 
 .Matchbox-Banner--info {
   background: #f2f9fd; }
@@ -292,15 +295,10 @@ small {
   background: #e3af00; }
 
 .Matchbox-Banner--danger {
-  background: #fcf0f1; }
+  background: #fbeaeb; }
 
 .Matchbox-Banner--danger:before {
-  background: #d93845; }
-
-.Matchbox-Banner--overlay {
-  -webkit-box-shadow: 0 5px 9px rgba(65, 65, 70, 0.14);
-  box-shadow: 0 5px 9px rgba(65, 65, 70, 0.14);
-  border: 1px solid rgba(209, 209, 214, 0.5); }
+  background: #db2f3d; }
 
 .Matchbox-Banner__IconWrapper {
   position: relative;
@@ -324,6 +322,13 @@ small {
 .Matchbox-Banner__Actions {
   margin-top: 1rem; }
 
+.Matchbox-Banner__Actions > * {
+  display: inline-block;
+  margin-right: 1rem; }
+
+.Matchbox-Banner__Actions > :last-child {
+  margin-right: 0; }
+
 .Matchbox-Banner__Icon {
   position: absolute;
   top: 50%;
@@ -333,11 +338,11 @@ small {
   z-index: 1; }
 
 .Matchbox-Banner--successIcon {
-  fill: #88c33b; }
+  fill: #8cca3a; }
 
 .Matchbox-Banner--successIcon + .Matchbox-Banner__IconBackdrop {
-  -webkit-box-shadow: 0 0 0 7px rgba(155, 205, 90, 0.25);
-  box-shadow: 0 0 0 7px rgba(155, 205, 90, 0.25); }
+  -webkit-box-shadow: 0 0 0 7px rgba(140, 202, 58, 0.25);
+  box-shadow: 0 0 0 7px rgba(140, 202, 58, 0.25); }
 
 .Matchbox-Banner--infoIcon {
   fill: #2395c7; }
@@ -354,11 +359,11 @@ small {
   box-shadow: 0 0 0 7px rgba(227, 175, 0, 0.15); }
 
 .Matchbox-Banner--dangerIcon {
-  fill: #e72a39; }
+  fill: #db2f3d; }
 
 .Matchbox-Banner--dangerIcon + .Matchbox-Banner__IconBackdrop {
-  -webkit-box-shadow: 0 0 0 7px rgba(240, 10, 10, 0.15);
-  box-shadow: 0 0 0 7px rgba(240, 10, 10, 0.15); }
+  -webkit-box-shadow: 0 0 0 7px rgba(219, 47, 61, 0.15);
+  box-shadow: 0 0 0 7px rgba(219, 47, 61, 0.15); }
 
 .Matchbox-Banner__IconBackdrop {
   position: absolute;
@@ -388,6 +393,7 @@ small {
   fill: #828287; }
 
 .Matchbox-Button, .Matchbox-Button:visited {
+  display: inline-block;
   padding: .27778rem .66667rem;
   border: none;
   margin-bottom: 0;
@@ -417,10 +423,12 @@ small {
   border-radius: 0; }
 
 .Matchbox-Button__Group > .Matchbox-Button:first-child, .Matchbox-Button__Group > .Matchbox-Button:visited:first-child {
-  border-radius: 2px 0 0 2px; }
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px; }
 
 .Matchbox-Button__Group > .Matchbox-Button:last-child, .Matchbox-Button__Group > .Matchbox-Button:visited:last-child {
-  border-radius: 0 2px 2px 0; }
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px; }
 
 .Matchbox-Button:hover, .Matchbox-Button:visited:hover {
   background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f5), to(#f2f2f5));
@@ -432,6 +440,8 @@ small {
   box-shadow: 0 1px 2px rgba(65, 65, 70, 0.1), inset 0 3px 4px 0 rgba(85, 85, 90, 0.1); }
 
 .Matchbox-Button:focus, .Matchbox-Button:visited:focus {
+  position: relative;
+  z-index: 1;
   outline: 0;
   border: 1px solid #37aadc;
   -webkit-box-shadow: 0 0 0 1px #37aadc;
@@ -466,7 +476,7 @@ small {
   background: linear-gradient(180deg, #fa6423, #e9591b); }
 
 .Matchbox-Button--destructive, .Matchbox-Button--destructive:hover, .Matchbox-Button--destructive:visited, .Matchbox-Button--destructive:visited:hover {
-  color: #cd202b; }
+  color: #cb3640; }
 
 .Matchbox-Button--plain, .Matchbox-Button--plain:visited {
   background: transparent;
@@ -547,7 +557,7 @@ small {
 .Matchbox-Error__Icon {
   float: left;
   margin-right: .27778rem;
-  fill: #d93845;
+  fill: #db2f3d;
   line-height: .83333rem; }
 
 .Matchbox-Error__Message {
@@ -556,7 +566,7 @@ small {
   font-size: .72222rem;
   line-height: .83333rem;
   font-weight: 500;
-  color: #d93845; }
+  color: #db2f3d; }
 
 .Matchbox-Checkbox {
   position: relative;
@@ -1946,7 +1956,7 @@ small {
   display: inline-block; }
 
 .Matchbox-Pagination__End, .Matchbox-Pagination__Page, .Matchbox-Pagination__Start {
-  width: 2.16667rem; }
+  min-width: 2.33333rem; }
 
 .Matchbox-Pagination__Selected {
   font-weight: 700;
@@ -2182,8 +2192,8 @@ small {
   margin: 0; }
 
 .Matchbox-Select--error .Matchbox-Select__Input {
-  border: 1px solid #f00a0a;
-  background: rgba(217, 56, 69, 0.06); }
+  border: 1px solid #db2f3d;
+  background: rgba(203, 54, 64, 0.06); }
 
 .Matchbox-Select__Input {
   -webkit-appearance: none;
@@ -2202,6 +2212,8 @@ small {
   font-weight: 400;
   font-size: .83333rem;
   line-height: 1.33333rem;
+  -webkit-box-shadow: 0 1px 2px rgba(65, 65, 70, 0.1);
+  box-shadow: 0 1px 2px rgba(65, 65, 70, 0.1);
   -webkit-transition: border .15s;
   transition: border .15s; }
 
@@ -2234,6 +2246,63 @@ small {
   font-size: .72222rem;
   line-height: .83333rem;
   color: #828287; }
+
+.Matchbox-Snackbar {
+  position: relative;
+  display: inline-block;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 5px 9px rgba(65, 65, 70, 0.14);
+  box-shadow: 0 5px 9px rgba(65, 65, 70, 0.14);
+  background: #55555a;
+  color: #fff; }
+
+.Matchbox-Snackbar--success {
+  background: #8cca3a; }
+
+.Matchbox-Snackbar--danger {
+  background: #db2f3d; }
+
+.Matchbox-Snackbar__Content {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -4px;
+  padding: .66667rem 1rem;
+  min-width: 11.11111rem;
+  max-width: 21.11111rem;
+  font-size: .88889rem;
+  font-weight: 500;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.Matchbox-Snackbar__Content a, .Matchbox-Snackbar__Content a:visited {
+  color: #fff;
+  text-decoration: underline; }
+
+.Matchbox-Snackbar__Dismiss {
+  display: inline-block;
+  margin-right: -4px;
+  vertical-align: top;
+  padding: .66667rem 1rem;
+  border-bottom: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  font-size: .77778rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.Matchbox-Snackbar__Dismiss:hover .Matchbox-Snackbar__DismissIcon {
+  opacity: 1; }
+
+.Matchbox-Snackbar__DismissIcon {
+  fill: #fff;
+  opacity: .9;
+  -webkit-transition: opacity .15s;
+  transition: opacity .15s; }
 
 .Matchbox-Table {
   position: relative;
@@ -2345,12 +2414,12 @@ small {
   z-index: 1; }
 
 .Matchbox-Connect--hasLeft > * {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0; }
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important; }
 
 .Matchbox-Connect--hasRight > * {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0; }
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important; }
 
 .Matchbox-Connect__Left, .Matchbox-Connect__Right {
   -webkit-box-flex: 0;
@@ -2365,15 +2434,15 @@ small {
   margin-right: -1px; }
 
 .Matchbox-Connect__Left * {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important; }
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; }
 
 .Matchbox-Connect__Right {
   margin-left: -1px; }
 
 .Matchbox-Connect__Right * {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important; }
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
 
 .Matchbox-TextField {
   position: relative;
@@ -2385,8 +2454,8 @@ small {
   margin: 0; }
 
 .Matchbox-TextField--error .Matchbox-TextField__Input {
-  border: 1px solid #f00a0a;
-  background: rgba(217, 56, 69, 0.06); }
+  border: 1px solid #db2f3d;
+  background: rgba(219, 47, 61, 0.06); }
 
 .Matchbox-TextField__Input {
   position: relative;
@@ -2621,13 +2690,14 @@ small {
   Use this for your own component styles
 */
 html {
-  background: grayscale(9); }
+  background: #f2f2f5; }
   @media screen and (min-width: break(xl)) {
     html {
       font-size: 20px; } }
 
 a {
-  cursor: pointer; }
+  cursor: pointer;
+  text-decoration: none; }
 
 .text--center {
   text-align: center; }
@@ -2636,7 +2706,7 @@ a {
   color: #e3af00; }
 
 .text--green {
-  color: #9bcd5a; }
+  color: #8CCA3A; }
 
 .container {
   margin: 0 auto;
@@ -2656,3 +2726,6 @@ a {
 
 .clearfix:after {
   clear: both; }
+
+.float--right {
+  float: right; }

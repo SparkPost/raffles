@@ -4,29 +4,15 @@ import {
   Route,
   // Link,
   Redirect,
-  Switch,
-  withRouter
+  Switch
 } from 'react-router-dom'
-import auth from './helpers/auth'
-import { Button } from '@sparkpost/matchbox'
 import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 import AuthPage from './pages/AuthPage'
-import DashboardPage from './pages/Dashboard'
-
-const AuthButton = withRouter(({ history }) => (
-  auth.loggedIn() ? (
-    <p>
-      Welcome! <Button primary onClick={() => {
-        auth.logout()
-        history.push('/')
-      }}>Sign out</Button>
-    </p>
-  ) : (
-    <p>You are not logged in.</p>
-  )
-))
+import AdminPage from './pages/Admin'
+import RafflePage from './pages/Raffle'
 
 class App extends Component {
   render () {
@@ -36,14 +22,15 @@ class App extends Component {
           <Header />
           <div className='container container--content'>
             <Switch>
-              <Route exact path='/' render={() => <Redirect to='/dashboard' />} />
+              <Route exact path='/' render={() => <Redirect to='/admin' />} />
               <Route exact path='/auth' component={AuthPage} />
               <Route path='/auth/error/:errMsg' component={AuthPage} />
               <Route path='/auth/:token' component={AuthPage} />
-              <ProtectedRoute path='/dashboard' component={DashboardPage} />
+              <ProtectedRoute exact path='/admin' component={AdminPage} />
+              <ProtectedRoute exact path='/admin/raffle/:id' component={RafflePage} />
             </Switch>
-            <AuthButton />
           </div>
+          <Footer />
         </div>
       </Router>
     )

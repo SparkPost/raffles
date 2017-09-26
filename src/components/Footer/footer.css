@@ -438,20 +438,38 @@ small {
 ul, ol {
   padding-left: 1.5rem; }
 
-.header {
-  background: url("./background-pattern-white-05-144.png") #414146 center center;
-  background-size: 600px 600px;
-  background-position: bottom;
-  background-repeat: repeat;
-  padding: 2.22222rem 0 2.77778rem 0;
-  box-shadow: 0px 5px 9px rgba(65, 65, 70, 0.14); }
-  .header .logo__sparkpost {
-    width: 200px; }
-  .header .logo__lab {
-    margin-top: 0.55556rem;
-    font-size: 3.33333rem;
-    letter-spacing: 2px;
-    font-weight: bold;
-    font-family: Gotham Narrow SSm A, Gotham Narrow SSm B, sans-serif;
-    text-transform: uppercase;
+.footer {
+  position: static;
+  background: #414146; }
+  .footer h1, .footer h2, .footer h3, .footer h4, .footer h5, .footer h6, .footer p {
     color: #ffffff; }
+  .footer__nav {
+    padding: 1.83333rem 0;
+    border-top: 1px solid #55555a; }
+    .footer__nav .logo {
+      height: 1.66667rem;
+      width: auto; }
+  .footer__link {
+    display: inline-block;
+    padding: 0.5rem 0.66667rem;
+    font-family: Gotham Narrow SSm A, Gotham Narrow SSm B, sans-serif;
+    font-size: 0.55556rem;
+    color: #aaaaaf;
+    font-weight: 400; }
+    .footer__link:hover {
+      color: #ffffff;
+      text-decoration: none; }
+    @media screen and (min-width: break(md)) {
+      .footer__link {
+        font-size: 0.66667rem;
+        padding: 0 1.16667rem; } }
+  .footer .button {
+    display: block;
+    text-align: center;
+    font-size: 0.61111rem;
+    white-space: nowrap; }
+    @media screen and (min-width: break(md)) {
+      .footer .button {
+        display: inline-block;
+        font-size: 0.66667rem;
+        text-align: left; } }

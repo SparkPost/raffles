@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const passport = require('passport')
 const app = express()
 const authRouter = require('./routes/auth')
@@ -17,6 +18,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(passport.initialize())
+
+app.use(cors())
 
 app.use('/auth', authRouter)
 app.use('/api', apiRouter)
