@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import instance from '../../helpers/axios'
 import { Page } from '@sparkpost/matchbox'
 
-class RafflePage extends Component {
+class ViewPage extends Component {
   constructor (props) {
     super(props)
     this.state = { raffle: {} }
@@ -33,4 +33,4 @@ class RafflePage extends Component {
   }
 }
 
-export default RafflePage
+export default ViewPage

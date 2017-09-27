@@ -1,0 +1,8 @@
+@import '@sparkpost/matchbox/src/styles/config.scss';
+@import '@sparkpost/matchbox/src/styles/global.scss';
+
+.raffleCard {
+  &__leftColumn {
+    text-align: center;
+  }
+}

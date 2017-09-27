@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import instance from '../../helpers/axios'
 import { Page, Tabs } from '@sparkpost/matchbox'
 import RaffleCard from '../../components/RaffleCard'
@@ -45,7 +45,7 @@ class AdminPage extends Component {
     ]
     return (
       <div>
-        <Page title='Admin' primaryAction={{content: 'Create'}} />
+        <Page title='Admin' primaryAction={{content: 'Create', Component: Link, to: '/admin/raffles/create'}} />
         <Tabs selected={this.state.selectedTab} tabs={tabs} connectBelow={false} />
         {raffles.map(raffle => (
           <RaffleCard key={raffle.id} {...raffle} />

@@ -12,7 +12,7 @@ import Footer from './components/Footer'
 
 import AuthPage from './pages/AuthPage'
 import AdminPage from './pages/Admin'
-import RafflePage from './pages/Raffle'
+import raffles from './pages/raffles'
 
 class App extends Component {
   render () {
@@ -27,7 +27,9 @@ class App extends Component {
               <Route path='/auth/error/:errMsg' component={AuthPage} />
               <Route path='/auth/:token' component={AuthPage} />
               <ProtectedRoute exact path='/admin' component={AdminPage} />
-              <ProtectedRoute exact path='/admin/raffle/:id' component={RafflePage} />
+              <ProtectedRoute exact path='/admin/raffles/create' component={raffles.CreatePage} />
+              <ProtectedRoute exact path='/admin/raffles/edit/:id' component={raffles.EditPage} />
+              <ProtectedRoute exact path='/admin/raffles/view/:id' component={raffles.ViewPage} />
             </Switch>
           </div>
           <Footer />
