@@ -3,6 +3,30 @@ import { Link } from 'react-router-dom'
 import { Page, Panel, TextField, Button, Grid } from '@sparkpost/matchbox'
 
 class CreatePage extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      name: '',
+      localpart: '',
+      description: '',
+      campaign: '',
+      started_at: null,
+      ended_at: null,
+      email_data: null
+    }
+    this.handInputChange = this.handleInputChange.bind(this)
+  }
+
+  handleInputChange (event) {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value
+    })
+  }
+
   handleCreate (values) {
     // return create(values)
     //  .then(() => this.setState({ shouldRedirect: true }));
@@ -21,6 +45,8 @@ class CreatePage extends Component {
               id='name'
               label='Name'
               placeholder='Name'
+              value={this.state.name}
+              onChange={this.handleInputChange}
             />
             <TextField
               id='localpart'
