@@ -61,6 +61,7 @@ module.exports = function(io) {
 
   router.post('/', function(req, res) {
     var batch = req.body;
+    var relayEvent = {};
     RelayMessage.createMany(batch)
       .then(function() {
         res.sendStatus(200);
@@ -69,7 +70,12 @@ module.exports = function(io) {
         var i;
 
         for (i = 0; i < batch.length; i++) {
-          processRelayMessage(batch[i].msys.relay_message);
+          relayEvent = batch[i].msys.relay_message
+          // Prevent Confirmation Loops
+          if (relayEvent.rcpt_to.split('@')[0] === 'confirmation') {
+            return;
+          }
+          processRelayMessage(relayEvent);
         }
       })
       .fail(function(err) {
