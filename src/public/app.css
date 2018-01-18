@@ -50,7 +50,7 @@ body.page-dashboard .panel {
 body.page-dashboard .count {
   color: #55555a;
   background-color: #ffffff;
-  height: 400px;
+  height: 360px;
 }
 body.page-dashboard .count hr {
   border: 1px solid #d2d2d5;
@@ -64,21 +64,21 @@ body.page-dashboard .section-title {
   text-align: center;
 }
 body.page-dashboard .count-num {
-  font-size: 100pt;
-  font-weight: 100;
+  font-size: 160pt;
+  font-weight: 350;
   color: #fa6423;
 }
 body.page-dashboard .entries {
   color: #55555a;
   background-color: #f2f2f5;
-  height: 400px;
+  height: 360px;
 }
 body.page-dashboard .entries table {
   table-layout: fixed;
 }
 body.page-dashboard .entries table td {
   border: 0;
-  font-size: 16px;
+  font-size: 18px;
   width: 50%;
 }
 body.page-dashboard .entries table td:first-child {
@@ -90,14 +90,15 @@ body.page-dashboard .entries table td:first-child {
 body.page-dashboard .entry-info {
   margin-top: 70px;
   color: white;
-  font-size: 21px;
+  font-size: 40px;
   font-weight: 100;
-  line-height: 28px;
+  line-height: 50px;
   text-align: right;
 }
 body.page-dashboard .entry-info p {
   display: inline-block;
   margin-right: 30px;
+  padding-top: 20px;
   vertical-align: middle;
 }
 body.page-dashboard .entry-info a {
@@ -107,7 +108,6 @@ body.page-dashboard .entry-info a {
 }
 body.page-dashboard .entry-info img {
   border: 2px solid #37aadc;
-  width: 96px;
 }
 body.page-dashboard .compact {
   margin-top: -75px;
@@ -117,4 +117,12 @@ body.page-dashboard .compact .entry-info {
 }
 body.page-dashboard .compact .entry-data {
   margin-top: 50px;
+}
+body.page-dashboard .footer {
+  padding-top: 16px;
+  font-size: 24px;
+  font-weight: bold;
+}
+body.page-dashboard .footer a {
+  color: #37aadc;
 }

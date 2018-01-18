@@ -43,7 +43,7 @@ angular.module('rafflesApp.controllers.dashboard', [
     };
 
     ctrl.getRecentEntries = function() {
-      Raffle.listEntries(ctrl.raffle, { sort: 'created DESC', limit: 5 })
+      Raffle.listEntries(ctrl.raffle, { sort: 'created DESC', limit: 7 })
         .then(function(entries) {
           ctrl.recentEntries = entries.map(function(entry) {
             return {

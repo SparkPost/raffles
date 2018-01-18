@@ -9,12 +9,12 @@
     </div>
   </div>
   <div class="row entry-info" ng-show="ctrl.compact">
-    <div class="col-md-4 col-md-offset-1 text-center">
-      <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
+    <div class="col-md-3 col-md-offset-1 text-center">
+      <img width="150" height="150" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=150" alt="QR Code" />
     </div>
-    <div class="col-md-6">
-      <p class="text-left">
-        To enter, scan the code: <br />
+    <div class="col-md-7">
+      <p class="text-center">
+        To enter, scan the code
         or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
       </p>
     </div>
@@ -23,8 +23,6 @@
     <div class="col-md-4 col-md-offset-1 text-center">
       <div class="count panel panel-default">
         <div class="panel-body">
-          <div class="section-title">Count:</div>
-          <hr />
           <div class="center-block count-num">{{ctrl.count}}</div>
         </div>
       </div>
@@ -32,7 +30,6 @@
     <div class="col-md-6">
       <div class="entries panel panel-default">
         <div class="panel-body">
-          <div class="section-title">Latest Entries:</div>
           <table class="table">
             <tbody>
               <tr ng-repeat="entry in ctrl.recentEntries">
@@ -51,7 +48,12 @@
         To enter, scan the code: <br />
         or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
       </p>
-      <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
+      <img width="100" height="100" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=100" alt="QR Code" />
+    </div>
+  </div>
+  <div class="row footer">
+    <div class="col-md-12 text-center">
+      <a href="https://github.com/SparkPost/raffles">github.com/SparkPost/raffles</a>
     </div>
   </div>
 </div>
