@@ -10,7 +10,7 @@
   </div>
   <div class="row entry-info" ng-show="ctrl.compact">
     <div class="col-md-3 col-md-offset-1 text-center">
-      <img width="150" height="150" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=150" alt="QR Code" />
+      <img ng-click="ctrl.compact=!ctrl.compact" width="150" height="150" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=150" alt="QR Code" />
     </div>
     <div class="col-md-7">
       <p class="text-center">
@@ -48,7 +48,7 @@
         To enter, scan the code: <br />
         or email <a href="mailto:{{ctrl.raffle}}@raffle.sparkpost.com">{{ctrl.raffle}}@raffle.sparkpost.com</a>
       </p>
-      <img width="100" height="100" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=100" alt="QR Code" />
+      <img ng-click="ctrl.compact=!ctrl.compact" width="100" height="100" src="/raffles/{{ctrl.raffle}}/qr-code.png?size=100" alt="QR Code" />
     </div>
   </div>
   <div class="row footer">

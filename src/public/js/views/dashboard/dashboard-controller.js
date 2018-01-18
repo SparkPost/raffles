@@ -28,9 +28,7 @@ angular.module('rafflesApp.controllers.dashboard', [
     ctrl.count = 0;
     ctrl.recentEntries = [];
     ctrl.details = '';
-    console.log($location.search().compact);
     ctrl.compact = $location.search().compact || false;
-    console.log(ctrl.compact);
 
     ctrl.getCount = function() {
       Raffle.getCount(ctrl.raffle)

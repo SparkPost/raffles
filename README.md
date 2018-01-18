@@ -79,6 +79,17 @@ You can also run the `dev` command to set a watcher on files to restart the serv
 npm run dev
 ```
 
+## Using The Dashboard
+
+Each raffle has a dashboard useful for displaying on a TV at events. You can givie the dashboard for each raffle using this URL: `/#/raffles/:raffleId/dashboard`.
+
+### Reporting Time Window
+The dashboard will show details about the last 24 hours by default. You can set the reporting time window using the date pickers at the top of the dashboard.
+
+### Compact Mode
+
+The dashboard includes a "compact mode" which hides the date pickers (but still obeys your selected time window). You can toggle compact mode by clicking on the QR code image.
+
 ## API Usage
 Note: all endpoints support `from` and `to` query date/time parameters to narrow their focus to a particular time window.
 If the JS Date type can parse it, you can use it in `from` or `to`.
@@ -93,6 +104,7 @@ $curl -u myusername:mypassword -s 'http://localhost:3000/raffles?from=2015-01-01
 ```bash
 $ curl -u myusername:mypassword -s http://localhost:3000/raffles | jq .
 ```
+
 ```json
 {
   "results": [
@@ -106,12 +118,13 @@ $ curl -u myusername:mypassword -s http://localhost:3000/raffles | jq .
     }
     ]
 }
-'''
+```
 
 `/raffles/:raffleId` - summarise entries for a raffle:
 ```bash
 $ curl -u myusername:mypassword -s http://localhost:3000/raffles/dgray | jq .
 ```
+
 ```json
 {
 "results": {
@@ -123,9 +136,11 @@ $ curl -u myusername:mypassword -s http://localhost:3000/raffles/dgray | jq .
 ```
 
 `/raffles/:raffleId/winner` - pick a winning entrant for a given raffle:
+
 ```bash
 $ curl -u myusername:mypassword -s http://localhost:3000/raffles/dgray/winner | jq .
 ```
+
 ```json
 {
   "results": {
@@ -201,7 +216,6 @@ $ curl -s http://localhost:5000/raffles/thedude/entries | jq .
 }
 
 ```
-
 
 ## Using Heroku
 
