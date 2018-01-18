@@ -3,7 +3,7 @@
 @primary-grey-color: #55555a;
 @secondary-grey-color: #d2d2d5;
 @light-grey-color: #f2f2f5;
-@box-height: 400px;
+@box-height: 360px;
 
 
 
@@ -81,8 +81,8 @@ body.page-dashboard {
   }
 
   .count-num {
-    font-size: 100pt;
-    font-weight: 100;
+    font-size: 160pt;
+    font-weight: 350;
     color: @primary-orange-color;
   }
 
@@ -96,7 +96,7 @@ body.page-dashboard {
 
       td {
         border: 0;
-        font-size: 16px;
+        font-size: 18px;
         width: 50%;
 
         &:first-child {
@@ -112,14 +112,15 @@ body.page-dashboard {
   .entry-info {
     margin-top: 70px;
     color: white;
-    font-size: 21px;
+    font-size: 40px;
     font-weight: 100;
-    line-height: 28px;
+    line-height: 50px;
     text-align: right;
 
     p {
       display: inline-block;
       margin-right: 30px;
+      padding-top: 20px;
       vertical-align: middle;
     }
 
@@ -131,7 +132,6 @@ body.page-dashboard {
 
     img {
       border: 2px solid @primary-blue-color;
-      width: 96px;
     }
   }
 
@@ -144,6 +144,15 @@ body.page-dashboard {
 
     .entry-data {
       margin-top: 50px;
+    }
+  }
+
+  .footer {
+    padding-top: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    a {
+      color: @primary-blue-color;
     }
   }
 }
