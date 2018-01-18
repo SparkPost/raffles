@@ -83,7 +83,7 @@ npm run dev
 
 Each raffle has a dashboard useful for displaying on a TV at events. You can givie the dashboard for each raffle using this URL: `/#/raffles/:raffleId/dashboard`.
 
-### Reporting Time Window
+### Reporting Time Window
 The dashboard will show details about the last 24 hours by default. You can set the reporting time window using the date pickers at the top of the dashboard.
 
 ### Compact Mode
